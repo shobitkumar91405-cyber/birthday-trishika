@@ -1,129 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nisha Khan 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nisha Khan!</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --night-bg: #0b0d17;
+            --gold: #ffd700;
+        }
 
-<style>
-body{
-  margin:0;
-  font-family:Poppins,sans-serif;
-  background:linear-gradient(135deg,#ff5fa2,#7b6cff);
-  text-align:center;
-  color:white;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--night-bg);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+        }
 
-/* MUSIC */
-audio{display:none}
+        /* Night Sky Animation */
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
 
-/* HEADER */
-h1{
-  margin-top:40px;
-  font-size:3rem;
-}
-p{opacity:.9}
+        .header {
+            padding: 50px 20px;
+            animation: fadeInDown 2s;
+        }
 
-/* CARD GRID */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:25px;
-  padding:40px;
-}
+        h1 {
+            font-size: 3.5rem;
+            color: var(--primary-pink);
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
+            margin-bottom: 10px;
+        }
 
-/* CARD */
-.card{
-  background:white;
-  color:#333;
-  border-radius:25px;
-  padding:30px 20px;
-  font-size:2.5rem;
-  cursor:pointer;
-  transition:.4s;
-}
-.card:hover{
-  transform:scale(1.1);
-}
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
 
-/* ANIMATION AREA */
-#animation{
-  font-size:5rem;
-  margin:30px 0;
-  animation:pop .5s ease;
-}
-@keyframes pop{
-  from{transform:scale(.5);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
+        /* Cute Doll Animation */
+        .doll-container {
+            font-size: 80px;
+            animation: bounce 2s infinite;
+            margin: 20px 0;
+        }
 
-/* MESSAGE BOX */
-#msgBox{
-  background:white;
-  color:#ff3f8e;
-  margin:30px auto;
-  padding:30px;
-  border-radius:30px;
-  max-width:500px;
-  display:none;
-  font-size:1.2rem;
-  line-height:1.8;
-}
+        /* Shayari Section */
+        .shayari-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* FOOTER */
-.footer{
-  margin:50px 0;
-  font-size:1.3rem;
-}
-.signature{
-  font-weight:bold;
-}
-</style>
+        .shayari-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--primary-pink);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .shayari-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px var(--primary-pink);
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: fixed;
+            color: var(--primary-pink);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 4s linear infinite;
+        }
+
+        footer {
+            padding: 50px;
+            background: rgba(0,0,0,0.5);
+            margin-top: 50px;
+            border-top: 1px solid var(--gold);
+        }
+
+        .credit { color: var(--gold); font-weight: bold; }
+
+        @keyframes floatUp {
+            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-
 <body>
 
-<audio id="music" autoplay loop>
-  <source src="birthday.mp3" type="audio/mpeg">
-</audio>
+    <canvas id="stars"></canvas>
 
-<h1>Nisha Khan 🫶</h1>
-<p>Tap cards one by one 💌</p>
+    <audio id="bgMusic" loop>
+        <source src="birthday.mp3" type="audio/mpeg">
+    </audio>
 
-<div id="animation">💖</div>
+    <div class="header">
+        <h1>Happy Birthday Nisha Khan! 🎂</h1>
+        <p class="subtitle">May your day be as beautiful as your soul</p>
+        <div class="doll-container">🧸🕺✨</div>
+        <button onclick="playMusic()" style="padding: 10px 20px; border-radius: 20px; border: none; background: #ff4d6d; color: white; cursor: pointer;">
+            Click to Play Music 🎵
+        </button>
+    </div>
 
-<div class="cards">
-  <div class="card" onclick="show(0)">🤗</div>
-  <div class="card" onclick="show(1)">😘</div>
-  <div class="card" onclick="show(2)">😠</div>
-  <div class="card" onclick="show(3)">🥺</div>
-  <div class="card" onclick="show(4)">❤️</div>
-</div>
+    <div class="shayari-grid" id="shayari-container">
+        </div>
 
-<div id="msgBox"></div>
+    <footer>
+        <p>Created with Love by <span class="credit">Sivasingh Aisa</span></p>
+    </footer>
 
-<div class="footer">
-  Always smiling 🌸<br>
-  <span class="signature">Made by Sivasingh 🥀</span>
-</div>
+    <script>
+        // Star Background Effect
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-<script>
-const animations=["🤗🤗","😘💋","😠💢","🥺👉👈","❤️✨"];
-const messages=[
-"🤗 Hug wali feeling – jab tum paas hoti ho toh duniya safe lagti hai Nisha 💖",
-"😘 Ek cute si kiss – jo bina bole sab keh jaati hai 🫶",
-"😠 Thoda gussa bhi cute hota hai jab tum karti ho 😅",
-"🥺 Sorry wali smile – jo dil seedha pighla deti hai 💕",
-"❤️ Ye dosti hamesha aisi hi rahe – pure, soft aur special ✨"
-];
+        const stars = Array(200).fill().map(() => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2,
+            speed: Math.random() * 0.5
+        }));
 
-function show(i){
-  document.getElementById("animation").innerHTML=animations[i];
-  const box=document.getElementById("msgBox");
-  box.style.display="block";
-  box.innerText=messages[i];
-}
-</script>
+        function drawStars() {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            stars.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.fill();
+                s.y += s.speed;
+                if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(drawStars);
+        }
+        drawStars();
 
+        // Shayari Content
+        const shayaris = [
+            "Khuda kare aapki har tamanna puri ho, Nisha! 💖",
+            "Phoolon ki tarah mahke zindagi aapki... 🌸",
+            "Aap wo pari ho jo har kisi ke dil mein basti hai. ✨",
+            "Chand se pyari chandni, Nisha hai sabse nyari! 🌙",
+            "Zindagi ka har pal khushiyon se bhara ho... 🎈",
+            "Happy Birthday to the most amazing girl! 🧸",
+            "Dua hai ki aap hamesha muskurati rahein. 😊",
+            "Your smile is brighter than a thousand suns! ☀️",
+            "Nisha, you are truly special. Have a blast! 🎊",
+            "Aapki dosti mere liye sabse bada tohfa hai. 🎁",
+            "May your success touch the skies! 🚀",
+            "Aapki aankhon mein kabhi aansu na aayein. ❤️",
+            "Har din ek naya jashn ho aapki zindagi mein. 🕺",
+            "Stay sweet, stay humble, stay Nisha! 🍭",
+            "The world is better because you are in it. 🌍",
+            "God bless you with health and wealth. 💰",
+            "Today is all about you! Enjoy it! 🍰",
+            "Nisha Khan - A name that means grace. ✨",
+            "Sending you a big virtual hug! 🤗",
+            "Keep shining like the star you are! ⭐"
+        ];
+
+        const container = document.getElementById('shayari-container');
+        shayaris.forEach(text => {
+            const card = document.createElement('div');
+            card.className = 'shayari-card';
+            card.innerHTML = `<p>${text}</p>`;
+            container.appendChild(card);
+        });
+
+        // Floating Hearts Animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(createHeart, 300);
+
+        function playMusic() {
+            const music = document.getElementById('bgMusic');
+            music.play();
+        }
+    </script>
 </body>
 </html>
