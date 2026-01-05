@@ -3,231 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
+<title>Happy Birthday Trishika ❤️</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins&display=swap');
-
 body{
     margin:0;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
     font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#ffe0ec,#fff5f8);
     text-align:center;
-    overflow:hidden;
+    overflow-x:hidden;
 }
 
-.section{display:none; padding:30px;}
-.active{display:block;}
-
-h1{
-    font-family:'Dancing Script',cursive;
-    color:#fff;
-    font-size:3rem;
+/* HEADER */
+.header{
+    padding:40px 20px;
+    background:linear-gradient(45deg,#ff4d6d,#ff9aa2);
+    color:white;
 }
+.header h1{font-size:3rem;margin:0}
+.header p{font-style:italic}
 
-p{
-    color:#fff;
-    font-size:1.15rem;
-    min-height:60px;
-}
-
-button{
+/* START BUTTON */
+#startBtn{
+    margin:30px;
+    padding:15px 30px;
+    font-size:1.1rem;
+    border:none;
+    border-radius:30px;
     background:#ff4d6d;
     color:white;
-    border:none;
-    padding:14px 30px;
-    border-radius:30px;
-    font-size:1rem;
     cursor:pointer;
-    margin-top:20px;
 }
 
-/* Balloons */
-.balloon-wrap{
-    display:flex;
-    justify-content:space-around;
-    margin-top:40px;
+/* CARD AREA */
+.cards{
+    display:none;
+    padding:30px 10px;
 }
-
-.balloon-box{
-    animation: float 3s infinite ease-in-out;
-}
-
-.balloon{
-    width:70px;
-    height:90px;
-    border-radius:50%;
-}
-
-.b1{background:#ff6f91;}
-.b2{background:#845ec2;}
-.b3{background:#ffc75f;}
-
-.love-text{
+.card{
+    width:90%;
+    max-width:350px;
+    margin:20px auto;
+    background:#ff4d6d;
     color:white;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-20px);}
-}
-
-/* Cake */
-.cake{
-    width:160px;
-    height:100px;
-    background:#f4a261;
-    margin:30px auto;
-    border-radius:10px;
-    position:relative;
-}
-
-.icing{
-    width:180px;
-    height:30px;
-    background:#e76f51;
-    position:absolute;
-    top:-15px;
-    left:-10px;
+    padding:40px 20px;
     border-radius:20px;
+    cursor:pointer;
+    font-size:1.3rem;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+    transition:.4s;
+}
+.card:hover{transform:scale(1.05)}
+
+.card.open{
+    background:white;
+    color:#d63384;
+    font-size:1.15rem;
+    white-space:pre-line;
 }
 
-.candle{
-    width:10px;
-    height:40px;
-    background:#ffd166;
-    position:absolute;
-    top:-50px;
-    left:75px;
+/* HEARTS */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:22px;
+    animation:rise 5s linear infinite;
+}
+@keyframes rise{
+    to{transform:translateY(-120vh);opacity:0}
 }
 
-.flame{
-    width:15px;
-    height:20px;
-    background:orange;
-    border-radius:50%;
-    position:absolute;
-    top:-20px;
-    left:-2px;
-    animation:flicker .5s infinite;
-}
-
-@keyframes flicker{
-    50%{transform:scale(1.2);}
-}
-
+/* FOOTER */
 footer{
-    color:white;
-    margin-top:30px;
-    font-size:.8rem;
+    margin:40px 0;
+    color:#999;
+    font-size:.9rem;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 MUSIC -->
-<audio id="music" src="song.mp3" loop></audio>
+<audio id="music" loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+</audio>
 
-<!-- SECTION 1 -->
-<div id="s1" class="section active">
-    <h1>Hey Trishika ❤️</h1>
-    <p>
-        Aaj ka din sirf tumhara hai…  
-        aur maine tumhare liye  
-        dil se kuch special banaya hai 💕
-    </p>
-    <button onclick="next(1)">Start Surprise 🎁</button>
+<div class="header">
+    <h1>Happy Birthday Trishika 🎂</h1>
+    <p>Made with endless love by Sivasingh 🥀</p>
 </div>
 
-<!-- SECTION 2 BALLOONS -->
-<div id="s2" class="section">
-    <h1>Just For You 🎈</h1>
+<button id="startBtn" onclick="startSurprise()">Start Your Surprise 🎁</button>
 
-    <div class="balloon-wrap">
-        <div class="balloon-box">
-            <div class="balloon b1"></div>
-            <div class="love-text">I LOVE YOU ❤️</div>
-        </div>
-        <div class="balloon-box">
-            <div class="balloon b2"></div>
-            <div class="love-text">I LOVE YOU ❤️</div>
-        </div>
-        <div class="balloon-box">
-            <div class="balloon b3"></div>
-            <div class="love-text">I LOVE YOU ❤️</div>
-        </div>
-    </div>
+<div class="cards" id="cards">
 
-    <button onclick="next(2)">Next 💖</button>
+    <div class="card" onclick="openCard(this,0)">💌 Click Me</div>
+    <div class="card" onclick="openCard(this,1)">💖 Click Me</div>
+    <div class="card" onclick="openCard(this,2)">🌹 Click Me</div>
+    <div class="card" onclick="openCard(this,3)">🥀 Click Me</div>
+
 </div>
 
-<!-- SECTION 3 CAKE -->
-<div id="s3" class="section">
-    <h1>Make a Wish 🎂</h1>
-
-    <div class="cake" onclick="cutCake()">
-        <div class="icing"></div>
-        <div class="candle">
-            <div class="flame"></div>
-        </div>
-    </div>
-
-    <p id="cakeText">Cake par click karo 🎉</p>
-</div>
-
-<!-- SECTION 4 SHAYARI -->
-<div id="s4" class="section">
-    <h1>Special Message For You ❤️</h1>
-    <p id="shayari"></p>
-    <button onclick="nextShayari()">Next 💌</button>
-</div>
-
-<footer>Made with ❤️ by Sivasingh</footer>
+<footer>Forever Yours — Sivasingh ❤️</footer>
 
 <script>
-const shayari = [
-"Happy Birthday Trishika! 💖 Tum meri zindagi ka sabse khoobsurat hissa ho.",
-"तुम मुस्कुराओ तो लगे 🌸 जन्नत पास आ गई हो 💕",
-"मेरी हर खुशी की वजह सिर्फ तुम हो ❤️",
-"On your special day, I want you to know how much I love you ✨",
-"तुम साथ हो तो हर दिन त्यौहार लगता है 🌸",
-"You are not just my girlfriend, you are my best friend 🌎",
-"दिल कहता है बार-बार… I Love You ❤️",
-"May your year be filled with as much joy as you bring into my life 🌷",
-"तुम मेरी आदत नहीं, मेरी ज़रूरत हो 💖",
-"I can’t wait to celebrate many more birthdays with you 🥂",
-"हर जन्म में तुम ही चाहिए 🥀",
-"Forever yours, Sivasingh ❤️"
+const music=document.getElementById("music");
+let started=false;
+
+const messages=[
+`🌸 Trishika 🌸
+
+Tumhari muskurahat meri har thakaan mita deti hai,
+Tumhari awaaz meri rooh ko sukoon deti hai,
+Is duniya me agar koi sabse khoobsurat cheez hai,
+Toh wo tum ho — sirf tum ❤️`,
+
+`💖 Meri Jaan 💖
+
+Tum sirf meri girlfriend nahi ho,
+Tum meri aadat ho,
+Meri dua ho,
+Meri har subah ki wajah ho
+Aur har raat ka khwab ✨`,
+
+`🌹 Birthday Wishes 🌹
+
+Khuda kare tumhara har sapna poora ho,
+Tumhari zindagi khushiyon se bhari ho,
+Aur main har birthday tumhare saath
+Aise hi manata rahoon 🎂❤️`,
+
+`🥀 From Sivasingh 🥀
+
+Aaj nahi,
+Har din tum special ho,
+Aur yaad rakhna —
+Is duniya me koi hai
+Jo tumhe hadd se zyada chahta hai 💕`
 ];
 
-let i = 0;
+function startSurprise(){
+    if(!started){
+        music.play().catch(()=>{});
+        started=true;
+    }
+    document.getElementById("startBtn").style.display="none";
+    document.getElementById("cards").style.display="block";
+    hearts();
+}
 
-function next(n){
-    document.getElementById('music').play();
-    document.getElementById('s'+n).classList.remove('active');
-    document.getElementById('s'+(n+1)).classList.add('active');
-
-    if(n === 3){ 
-        document.getElementById("shayari").innerText = shayari[0];
-        i = 1;
+function openCard(el,i){
+    if(!el.classList.contains("open")){
+        el.classList.add("open");
+        el.innerText=messages[i];
     }
 }
 
-function cutCake(){
-    document.querySelector('.flame').style.display="none";
-    document.getElementById('cakeText').innerText="Cake cut ho gaya 🎉";
-    setTimeout(()=>next(3),1500);
-}
-
-function nextShayari(){
-    if(i < shayari.length){
-        document.getElementById('shayari').innerText = shayari[i++];
-    } else {
-        alert("I LOVE YOU FOREVER ❤️");
-    }
+/* HEARTS EFFECT */
+function hearts(){
+    setInterval(()=>{
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerText="❤️";
+        h.style.left=Math.random()*100+"vw";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),5000);
+    },300);
 }
 </script>
 
