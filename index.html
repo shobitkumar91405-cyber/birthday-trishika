@@ -6,116 +6,147 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
---bg:#0b0e14;
---card:#1a1f29;
---accent:#ff4757;
---text:#fff;
-}
-
 body{
 margin:0;
-background:var(--bg);
-color:var(--text);
+background:#0b0e14;
+color:#fff;
 font-family:'Segoe UI',sans-serif;
 overflow-x:hidden;
 text-align:center;
 }
 
-/* ===== INTRO HEART SCREEN ===== */
+/* ================= START SCREEN ================= */
 #startScreen{
 position:fixed;
 inset:0;
-background:#000;
+background:radial-gradient(circle at top,#2b000f,#000);
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 z-index:10000;
+overflow:hidden;
 }
 
+/* 🌹 ROSE PETALS */
+.petal{
+position:absolute;
+top:-40px;
+font-size:26px;
+animation:fall linear infinite;
+}
+@keyframes fall{
+to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+/* ❤️ FLOATING HEARTS */
+.float{
+position:absolute;
+font-size:22px;
+animation:up 6s linear infinite;
+opacity:.6;
+}
+@keyframes up{
+to{transform:translateY(-110vh);opacity:0}
+}
+
+/* ❤️ BIG 3D HEART */
 .big-heart{
-font-size:140px;
-animation:rotate 4s linear infinite, color 2s infinite;
+font-size:170px;
 cursor:pointer;
+animation:spin 6s linear infinite,pulse 1.5s infinite,color 3s infinite;
+text-shadow:0 0 50px #ff4d6d;
 }
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{transform:scale(1.2)}}
+@keyframes color{50%{color:#ffd166}}
 
-@keyframes rotate{
-to{transform:rotate(360deg)}
-}
-@keyframes color{
-0%{color:#ff4757}
-50%{color:#ffdd59}
-100%{color:#1e90ff}
-}
-
+/* ✨ TEXT */
 #startText{
 display:none;
+font-size:24px;
 margin-top:20px;
-font-size:20px;
-line-height:1.5;
-animation:fadeIn 1s forwards;
+line-height:1.7;
+color:#ffd6e8;
+text-shadow:0 0 15px #ff4d6d;
 }
 
-@keyframes fadeIn{
-from{opacity:0}
-to{opacity:1}
-}
-
-#yesBtn{
-display:none;
-margin-top:20px;
-padding:12px 30px;
+/* 💍 BUTTONS */
+.btns button{
+padding:14px 35px;
+margin:15px;
 border:none;
-border-radius:30px;
-font-size:18px;
-background:#ff4757;
-color:#fff;
+border-radius:40px;
+font-size:20px;
 cursor:pointer;
 }
+.yes{background:#ff4d6d;color:white}
+.no{background:#444;color:white}
 
-/* ===== MAIN SITE ===== */
+#sadText{
+display:none;
+font-size:22px;
+color:#ffaaaa;
+margin-top:10px
+}
+
+/* 🎉 YES SCREEN */
+#yesScreen{
+position:fixed;
+inset:0;
+background:radial-gradient(circle,#ff4d6d,#000);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:20000;
+}
+#yesScreen h1{
+font-size:45px;
+text-shadow:0 0 30px white;
+}
+
+/* ❤️ BLAST HEART */
+.heart{
+position:fixed;
+font-size:22px;
+animation:blast 2.5s linear forwards;
+}
+@keyframes blast{
+to{transform:translateY(-250px) scale(1.6);opacity:0}
+}
+
+/* ================= MAIN SITE ================= */
 #mainSite{display:none}
 
-/* RAIN */
+header{padding:20px}
+h2{color:#ff4d6d}
+.made{opacity:.7}
+
+.insta a{color:#ff69b4;text-decoration:none}
+
+/* 🌧️ RAIN */
 .rain{
 position:fixed;
 top:-10px;
 width:2px;
 height:12px;
 background:#5dade2;
-animation:fall linear infinite;
+animation:rain linear infinite;
 opacity:.6;
 }
-@keyframes fall{to{transform:translateY(110vh)}}
+@keyframes rain{
+to{transform:translateY(110vh)}
+}
 
-/* LIGHT */
-.light{
+/* ⚡ LIGHT */
+#light{
 position:fixed;
 inset:0;
 background:white;
 opacity:0;
 pointer-events:none;
-transition:.1s;
 }
-
-/* HEARTS */
-.heart{
-position:fixed;
-font-size:22px;
-animation:float 2.5s linear forwards;
-}
-@keyframes float{
-to{transform:translateY(-250px) scale(1.5);opacity:0}
-}
-
-/* HEADER */
-header{padding:20px}
-h2{color:var(--accent)}
-.made{opacity:.7}
-
-/* INSTAGRAM */
-.insta a{color:#ff69b4;text-decoration:none;font-weight:bold}
 
 /* VIDEOS */
 .videos{
@@ -126,8 +157,16 @@ padding:15px;
 max-width:900px;
 margin:auto;
 }
-.vcard{background:var(--card);border-radius:20px;padding:10px}
-.vcard video{width:100%;border-radius:15px;display:none}
+.vcard{
+background:#1a1f29;
+border-radius:20px;
+padding:10px;
+}
+.vcard video{
+width:100%;
+border-radius:15px;
+display:none;
+}
 .play{font-size:40px;cursor:pointer}
 
 /* PHOTO */
@@ -135,7 +174,7 @@ margin:auto;
 width:90%;
 max-width:300px;
 border-radius:20px;
-border:3px solid var(--accent);
+border:3px solid #ff4d6d;
 }
 
 /* SHAYARI */
@@ -148,13 +187,11 @@ margin:20px auto;
 padding:10px;
 }
 .card{
-background:var(--card);
+background:#1a1f29;
 border-radius:15px;
 padding:15px;
 cursor:pointer;
-transition:.3s;
 }
-.card:active{transform:scale(1.08)}
 .cover{font-size:35px}
 .content{display:none;font-size:14px;font-weight:bold}
 
@@ -164,21 +201,35 @@ audio{display:none}
 
 <body>
 
-<!-- ===== START SCREEN ===== -->
+<!-- ❤️ START SCREEN -->
 <div id="startScreen">
 <div class="big-heart" onclick="startLove()">❤️</div>
+
 <div id="startText">
-Aarvi ji welcome to SivaSingh heart 💖<br>
-I want to say I love you…<br>
-Do you love me?
-</div>
-<button id="yesBtn" onclick="openSite()">YES ❤️</button>
+Aarvi ji 😍<br>
+Welcome to SivaSingh’s Heart 💖<br>
+I want to say I Love You…<br>
+Do you love me? 💍
 </div>
 
-<!-- ===== MAIN WEBSITE ===== -->
+<div class="btns" id="btnBox" style="display:none">
+<button class="yes" onclick="yesClicked()">YES ❤️</button>
+<button class="no" onclick="noClicked()">NO 💔</button>
+</div>
+
+<div id="sadText">😭 Please say YES…</div>
+</div>
+
+<!-- 🎉 YES SCREEN -->
+<div id="yesScreen">
+<h1>She Said YES ❤️🎉</h1>
+<p>Aarvi ji 😍 & SivaSingh Forever 💖</p>
+</div>
+
+<!-- 🌐 MAIN SITE -->
 <div id="mainSite">
 
-<div id="light" class="light"></div>
+<div id="light"></div>
 
 <audio id="bgMusic" loop>
 <source src="newsong.mp3">
@@ -186,12 +237,14 @@ Do you love me?
 
 <header>
 <h2>For Aarvi ji 😍</h2>
-<div class="insta">📸 Instagram :
+<div class="insta">
+📸 Instagram :
 <a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
 </div>
 <p class="made">Made with ❤️ by SivaSingh</p>
 </header>
 
+<!-- 🎬 VIDEOS -->
 <div class="videos">
 <div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video1.mp4" playsinline></video></div>
 <div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video2.mp4" playsinline></video></div>
@@ -199,47 +252,41 @@ Do you love me?
 <div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video4.mp4" playsinline></video></div>
 </div>
 
+<!-- 📸 PHOTO -->
 <div class="photo-box" onclick="nextPhoto()">
 <img id="photo" src="photo1.jpg">
 <p>Click Photo 📸</p>
 </div>
 
+<!-- 💌 SHAYARI GRID -->
 <div class="grid" id="shayariGrid"></div>
 </div>
 
 <script>
-/* START HEART */
-function startLove(){
-heartBlast(innerWidth/2,innerHeight/2);
-document.getElementById("startText").style.display="block";
-document.getElementById("yesBtn").style.display="inline-block";
-}
+/* 🌹 PETALS */
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.innerHTML="🌹";
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=4+Math.random()*3+"s";
+startScreen.appendChild(p);
+setTimeout(()=>p.remove(),7000);
+},300);
 
-/* OPEN SITE */
-function openSite(){
-document.getElementById("startScreen").style.display="none";
-document.getElementById("mainSite").style.display="block";
-}
+/* ❤️ FLOATING HEARTS */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="float";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+startScreen.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},400);
 
-/* RAIN */
-for(let i=0;i<120;i++){
-let r=document.createElement("div");
-r.className="rain";
-r.style.left=Math.random()*100+"vw";
-r.style.animationDuration=0.5+Math.random()+"s";
-document.body.appendChild(r);
-}
-
-/* LIGHT */
-function flash(){
-let l=document.getElementById("light");
-l.style.opacity=0.9;
-setTimeout(()=>l.style.opacity=0,120);
-}
-
-/* HEART BLAST */
-function heartBlast(x,y){
-for(let i=0;i<40;i++){
+/* ❤️ BLAST */
+function blast(x,y){
+for(let i=0;i<50;i++){
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="❤️";
@@ -250,25 +297,66 @@ setTimeout(()=>h.remove(),2500);
 }
 }
 
-/* VIDEO */
-function toggleVideo(el){
-const video=el.nextElementSibling;
-document.querySelectorAll("video").forEach(v=>{
-if(v!==video){v.pause();v.style.display="none";v.previousElementSibling.style.display="block";}
-});
-el.style.display="none";
-video.style.display="block";
-video.play();
+/* START */
+function startLove(){
+blast(innerWidth/2,innerHeight/2);
+startText.style.display="block";
+btnBox.style.display="block";
 }
 
-/* PHOTO */
+/* NO */
+function noClicked(){
+sadText.style.display="block";
+}
+
+/* YES */
+function yesClicked(){
+yesScreen.style.display="flex";
+setTimeout(()=>{
+yesScreen.style.display="none";
+startScreen.style.display="none";
+mainSite.style.display="block";
+},3500);
+}
+
+/* 🌧️ RAIN */
+for(let i=0;i<120;i++){
+let r=document.createElement("div");
+r.className="rain";
+r.style.left=Math.random()*100+"vw";
+r.style.animationDuration=0.5+Math.random()+"s";
+document.body.appendChild(r);
+}
+
+/* ⚡ LIGHT */
+function flash(){
+light.style.opacity=0.9;
+setTimeout(()=>light.style.opacity=0,120);
+}
+
+/* 🎬 VIDEO */
+function toggleVideo(el){
+const v=el.nextElementSibling;
+document.querySelectorAll("video").forEach(x=>{
+if(x!==v){
+x.pause();
+x.style.display="none";
+x.previousElementSibling.style.display="block";
+}
+});
+el.style.display="none";
+v.style.display="block";
+v.play();
+}
+
+/* 📸 PHOTO */
 let p=1;
 function nextPhoto(){
-p++; if(p>10)p=1;
+p++; if(p>10) p=1;
 photo.src="photo"+p+".jpg";
 }
 
-/* SHAYARI (FULL – NOTHING REMOVED) */
+/* 💌 SHAYARI — FULL ORIGINAL (NOTHING REMOVED) */
 const shayaris=[
 "Zindagi ke safar mein tera sath chahiye, tanhaiyon mein tera hath chahiye.",
 "Phoolon ki mehak bhi fiki lagti hai, jab Aarvi ji 😍 teri muskurahat dikhti hai.",
@@ -293,21 +381,18 @@ const shayaris=[
 "SivaSingh ki taraf se dosti ka uphar ❤️"
 ];
 
-const grid=document.getElementById("shayariGrid");
-const emojis=["🌟","✨","💎","🌸","🦋","🎈","❤️"];
-
 shayaris.forEach(t=>{
 let c=document.createElement("div");
 c.className="card";
-c.innerHTML=`<div class="cover">${emojis[Math.random()*emojis.length|0]}</div><div class="content">${t}</div>`;
+c.innerHTML=`<div class="cover">💖</div><div class="content">${t}</div>`;
 c.onclick=e=>{
 c.querySelector(".cover").style.display="none";
 c.querySelector(".content").style.display="block";
 bgMusic.play();
 flash();
-heartBlast(e.clientX,e.clientY);
+blast(e.clientX,e.clientY);
 };
-grid.appendChild(c);
+shayariGrid.appendChild(c);
 });
 </script>
 
