@@ -2,77 +2,142 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>I Love You Ritika ji 😍</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Pallavi 😍 - By SivaSingh</title>
 
 <style>
-body{
-margin:0;
-background:#0b0e14;
-color:#fff;
-font-family:'Segoe UI',sans-serif;
-text-align:center;
-overflow-x:hidden;
+:root{
+--bg:#0b0e14;
+--card:#1a1f29;
+--accent:#ff4757;
+--text:#fff;
 }
 
-section{padding:25px 15px}
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:'Segoe UI',sans-serif;
+overflow-x:hidden;
+text-align:center;
+}
 
-/* INTRO */
+/* ❤️ INTRO */
 #intro{
 position:fixed;
 inset:0;
 background:#000;
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
-flex-direction:column;
-z-index:999;
-animation:fadeout 1s forwards;
-animation-delay:4s;
+z-index:9999;
+animation:fadeOut 4s forwards;
 }
-#intro h1{color:#ff4757;font-size:38px}
-@keyframes fadeout{to{opacity:0;visibility:hidden}}
 
-/* HEARTS */
+#intro h1{
+font-size:2.5em;
+color:#ff4d6d;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.15)}
+100%{transform:scale(1)}
+}
+
+@keyframes fadeOut{
+0%,70%{opacity:1}
+100%{opacity:0;visibility:hidden}
+}
+
+/* 🌧️ RAIN */
+.rain{
+position:fixed;
+top:-10px;
+width:2px;
+height:12px;
+background:#5dade2;
+animation:fall linear infinite;
+opacity:.6;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh)}
+}
+
+/* ⚡ LIGHT */
+.light{
+position:fixed;
+inset:0;
+background:white;
+opacity:0;
+pointer-events:none;
+transition:.1s;
+}
+
+/* ❤️ HEARTS */
 .heart{
 position:fixed;
-color:red;
-font-size:18px;
-animation:float 3s linear forwards;
+font-size:22px;
+animation:float 2.5s linear forwards;
 }
+
 @keyframes float{
-to{transform:translateY(-200px);opacity:0}
+to{transform:translateY(-250px) scale(1.5);opacity:0}
 }
+
+/* HEADER */
+header{padding:20px}
+h2{color:var(--accent)}
+.made{opacity:.7}
+
+/* INSTAGRAM */
+.insta{
+margin-top:10px;
+font-size:15px;
+}
+.insta a{
+color:#ff69b4;
+text-decoration:none;
+font-weight:bold;
+}
+.insta a:hover{text-decoration:underline}
 
 /* VIDEO CARDS */
 .videos{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:15px;
+padding:15px;
 max-width:900px;
 margin:auto;
 }
+
 .vcard{
-background:#1a1f29;
+background:var(--card);
 border-radius:20px;
 padding:10px;
 }
+
 .vcard video{
 width:100%;
 border-radius:15px;
 display:none;
 }
-.vcard .play{
+
+.play{
 font-size:40px;
 cursor:pointer;
 }
 
 /* PHOTO */
-.photo img{
+.photo-box img{
 width:90%;
-max-width:320px;
+max-width:300px;
 border-radius:20px;
-border:3px solid #ff4757;
+border:3px solid var(--accent);
 }
 
 /* SHAYARI */
@@ -81,95 +146,112 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:15px;
 max-width:900px;
-margin:auto;
+margin:20px auto;
+padding:10px;
 }
+
 .card{
-background:#1a1f29;
+background:var(--card);
 border-radius:15px;
 padding:15px;
 cursor:pointer;
+transition:.3s;
 }
-.cover{font-size:30px}
-.content{display:none;font-size:14px}
+
+.card:active{transform:scale(1.08)}
+
+.cover{font-size:35px}
+.content{display:none;font-size:14px;font-weight:bold}
+
+/* AUDIO */
+audio{display:none}
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
+<!-- ❤️ INTRO -->
 <div id="intro">
-<h1>❤️ I Love You Pallavi 😍 ❤️</h1>
+<h1>❤️ I Love You Ritika ji 😍 ❤️</h1>
 </div>
 
+<!-- ⚡ LIGHT -->
+<div id="light" class="light"></div>
+
+<!-- 🎵 SONG -->
 <audio id="bgMusic" loop>
-<source src="newsong.mp3" type="audio/mpeg">
+<source src="newsong.mp3">
 </audio>
 
-<!-- VIDEOS -->
-<section>
-<h2>❤️ Special Videos</h2>
+<header>
+<h2>For Ritika ji 😍</h2>
+
+<div class="insta">
+📸 Instagram : 
+<a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
+</div>
+
+<p class="made">Made with ❤️ by SivaSingh</p>
+</header>
+
+<!-- 🎬 VIDEOS -->
 <div class="videos">
-
-<div class="vcard">
-<div class="play" onclick="toggleVideo(this,1)">❤️</div>
-<video src="video1.mp4" playsinline></video>
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video1.mp4" playsinline></video></div>
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video2.mp4" playsinline></video></div>
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video3.mp4" playsinline></video></div>
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video4.mp4" playsinline></video></div>
 </div>
 
-<div class="vcard">
-<div class="play" onclick="toggleVideo(this,2)">❤️</div>
-<video src="video2.mp4" playsinline></video>
+<!-- 📸 PHOTO -->
+<div class="photo-box" onclick="nextPhoto()">
+<img id="photo" src="photo1.jpg">
+<p>Click Photo 📸</p>
 </div>
 
-<div class="vcard">
-<div class="play" onclick="toggleVideo(this,3)">❤️</div>
-<video src="video3.mp4" playsinline></video>
-</div>
-
-<div class="vcard">
-<div class="play" onclick="toggleVideo(this,4)">❤️</div>
-<video src="video4.mp4" playsinline></video>
-</div>
-
-</div>
-</section>
-
-<!-- PHOTO -->
-<section class="photo">
-<h2>📸 Memories</h2>
-<img id="photo" src="photo1.jpg" onclick="nextPhoto()">
-</section>
-
-<!-- SHAYARI -->
-<section>
-<h2>💌 Shayari</h2>
+<!-- 💌 SHAYARI -->
 <div class="grid" id="shayariGrid"></div>
-</section>
 
 <script>
-const music=document.getElementById("bgMusic");
+/* 🌧️ RAIN */
+for(let i=0;i<120;i++){
+let r=document.createElement("div");
+r.className="rain";
+r.style.left=Math.random()*100+"vw";
+r.style.animationDuration=0.5+Math.random()+"s";
+document.body.appendChild(r);
+}
 
-/* HEART EFFECT */
-function hearts(){
-for(let i=0;i<12;i++){
+/* ⚡ LIGHT */
+function flash(){
+let l=document.getElementById("light");
+l.style.opacity=0.9;
+setTimeout(()=>l.style.opacity=0,120);
+}
+
+/* ❤️ HEART BLAST */
+function heartBlast(x,y){
+for(let i=0;i<40;i++){
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="❤️";
-h.style.left=Math.random()*100+"%";
-h.style.bottom="0";
+h.style.left=x+"px";
+h.style.top=y+"px";
 document.body.appendChild(h);
-setTimeout(()=>h.remove(),3000);
+setTimeout(()=>h.remove(),2500);
 }
 }
-setInterval(hearts,900);
 
-/* VIDEO PLAY INSIDE CARD */
-function toggleVideo(el,n){
-music.pause();
+/* 🎬 VIDEO */
+function toggleVideo(el){
 const card=el.parentElement;
 const video=card.querySelector("video");
 
-document.querySelectorAll("video").forEach(v=>{
-if(v!==video){v.pause();v.style.display="none";}
+document.querySelectorAll(".vcard video").forEach(v=>{
+if(v!==video){
+v.pause();v.currentTime=0;
+v.style.display="none";
+v.parentElement.querySelector(".play").style.display="block";
+}
 });
 
 el.style.display="none";
@@ -177,39 +259,55 @@ video.style.display="block";
 video.play();
 }
 
-/* PHOTO */
+/* 📸 PHOTO */
 let p=1;
 function nextPhoto(){
-p++; if(p>10)p=1;
+p++; if(p>10) p=1;
 document.getElementById("photo").src=`photo${p}.jpg`;
-hearts();
 }
 
-/* SHAYARI */
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
+
+/* 💌 SHAYARI */
 const shayaris=[
 "Zindagi ke safar mein tera sath chahiye, tanhaiyon mein tera hath chahiye.",
-"Phoolon ki mehak bhi fiki lagti hai, jab Pallavi teri muskurahat dikhti hai.",
+"Phoolon ki mehak bhi fiki lagti hai, jab Ritika ji 😍 teri muskurahat dikhti hai.",
 "Khuda kare har khushi teri ho, har kadam pe kamyabi teri ho.",
 "Dosti ka rishta sabse pyara hai, tu hi is dil ka sitara hai.",
 "Chand se pyari chandni, chandni se pyari raat, raat se pyari zindagi, aur zindagi se pyari teri dosti.",
 "Aapki dosti ne humein jeena sikhaya, har mod pe saath nibhaya.",
 "Khuda se mangi thi ek dua, mil gayi tum jaisi dost wafa.",
-"Dil se likhi hai baat, hamesha rahe Pallavi tera saath.",
+"Dil se likhi hai baat, hamesha rahe Ritika ji 😍 tera saath.",
 "Teri dosti ka nasha hai, har dard ki yahi dawa hai.",
 "Suraj ki pehli kiran ho tum, mere liye sabse khas ho tum.",
-"SivaSingh ki taraf se pyaar ❤️"
+"Bas tum haste raho, yahi dua hai meri har pal.",
+"Duniya ki har khushi Ritika ji 😍 ke naam ho, tera har din ek naya paigam ho.",
+"Dil ke rishte kabhi toote nahi karte, sachi dost kabhi rootha nahi karte.",
+"Aapki muskurahat sabse haseen hai, aap jaisa koi aur nahi hai.",
+"Zindagi mein aaye ho aise, jaise koi dua qubool hui ho.",
+"Khushboo ki tarah mehko tum sada, dosti ka yahi hai asli maza.",
+"Har pal tumhein yaad karte hain, tumhari dosti pe naaz karte hain.",
+"Ritika ji 😍, tum meri dosti ka maan ho, is dil ki tum hi shaan ho.",
+"Rabb se bas yahi maangte hain, ki tum hamesha salamat raho.",
+"Dosti ka safar yunhi chalta rahe, waqt badle par hum na badlein.",
+"SivaSingh ki taraf se dosti ka uphar ❤️"
 ];
 
 const grid=document.getElementById("shayariGrid");
+const emojis=["🌟","✨","💎","🌸","🦋","🎈"];
+
 shayaris.forEach(t=>{
 let c=document.createElement("div");
 c.className="card";
-c.innerHTML=`<div class="cover">🌸</div><div class="content">${t}</div>`;
-c.onclick=()=>{
+c.innerHTML=`<div class="cover">${emojis[Math.floor(Math.random()*emojis.length)]}</div>
+<div class="content">${t}</div>`;
+c.onclick=e=>{
 c.querySelector(".cover").style.display="none";
 c.querySelector(".content").style.display="block";
 music.play();
-hearts();
+flash();
+heartBlast(e.clientX,e.clientY);
 };
 grid.appendChild(c);
 });
