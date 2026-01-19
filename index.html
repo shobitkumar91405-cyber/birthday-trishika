@@ -2,287 +2,382 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Babu 💖</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap');
-
         :root {
-            --pastel-pink: #ffe4e1;
-            --pastel-peach: #fff5ee;
+            --pink: #ffe4e9;
+            --peach: #ffeadb;
+            --cream: #fff9f0;
             --glass: rgba(255, 255, 255, 0.45);
-            --accent: #ff85a2;
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --accent: #ff8fa3;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
         body {
-            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach), #fff0f5);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--pink), var(--peach), var(--cream));
+            background-attachment: fixed;
             overflow-x: hidden;
-            color: #555;
+            color: #5a4a4a;
             min-height: 100vh;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* --- BACKGROUND ANIMATIONS --- */
+        .flower-bed {
+            position: fixed;
+            bottom: -10px;
+            width: 100%;
+            height: 250px;
+            z-index: -1;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            pointer-events: none;
         }
 
-        #bg-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .flower {
+            position: relative;
+            transform-origin: bottom center;
+            animation: sway 5s ease-in-out infinite;
+        }
+
+        .stem {
+            width: 4px;
+            height: 0;
+            background: #a3ccab;
+            border-radius: 2px;
+            animation: growStem 3s ease-out forwards;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 18px;
+            height: 10px;
+            background: #a3ccab;
+            border-radius: 50% 50% 0 50%;
+            left: -15px;
+            top: 50px;
+            transform: rotate(-25deg);
+        }
+
+        .leaf.right {
+            left: 3px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(25deg);
+        }
+
+        .petals {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            width: 45px;
+            height: 45px;
+            animation: bloom 1s 2.5s ease-out forwards, pulse 3s infinite;
+        }
+
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 25px;
+            background: #ffb7c5;
+            border-radius: 50%;
+            transform-origin: bottom center;
+            box-shadow: 0 0 10px rgba(255, 183, 197, 0.4);
+        }
+
+        @keyframes growStem { to { height: 160px; } }
+        @keyframes bloom { to { transform: translateX(-50%) scale(1); } }
+        @keyframes sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes pulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.1) drop-shadow(0 0 5px white); } }
 
         .butterfly {
-            position: absolute;
+            position: fixed;
             font-size: 24px;
+            z-index: 0;
+            pointer-events: none;
+            filter: drop-shadow(0 0 5px white);
+        }
+
+        .heart {
+            position: fixed;
+            color: #ff8fa3;
+            pointer-events: none;
             z-index: 1;
-            opacity: 0.6;
-            animation: fly linear infinite;
-        }
-
-        @keyframes fly {
-            0% { transform: translate(-10vw, 100vh) rotate(0deg); }
-            25% { transform: translate(30vw, 50vh) rotate(20deg); }
-            50% { transform: translate(60vw, 80vh) rotate(-10deg); }
-            75% { transform: translate(85vw, 20vh) rotate(15deg); }
-            100% { transform: translate(110vw, -10vh) rotate(0deg); }
-        }
-
-        .heart-float {
-            position: absolute;
-            bottom: -20px;
-            color: var(--accent);
-            opacity: 0.7;
-            animation: floatUp linear infinite;
+            animation: floatUp linear forwards;
         }
 
         @keyframes floatUp {
-            to { transform: translateY(-110vh) translateX(20px); opacity: 0; }
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
 
+        /* --- UI ELEMENTS --- */
         header {
             text-align: center;
             padding: 20px;
-            position: relative;
-            z-index: 10;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        header h2 { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 1.4rem; }
-        header p { font-size: 0.9rem; opacity: 0.7; }
+        .header-chip {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            display: inline-block;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
 
         .container {
             max-width: 450px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .card {
             background: var(--glass);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 25px;
             text-align: center;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            position: relative;
+            display: none;
         }
 
-        .card img { width: 140px; border-radius: 20px; margin-bottom: 20px; }
-        .card h3 { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
-        .card p { line-height: 1.8; font-size: 1.1rem; font-weight: 500; }
+        #intro-card { display: block; }
 
-        button {
+        .card img {
+            width: 100%;
+            max-width: 160px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 12px 35px;
             border-radius: 50px;
             font-size: 1.1rem;
             cursor: pointer;
-            margin-top: 20px;
-            box-shadow: 0 6px 20px rgba(255, 133, 162, 0.4);
+            margin-top: 15px;
             transition: 0.3s;
         }
 
-        button:active { transform: scale(0.9); }
-
-        #video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            z-index: 100;
+        /* --- VIDEO PLAYER --- */
+        #video-overlay {
             display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 2000;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s ease;
         }
 
-        #video-container video { width: 100%; height: 100%; object-fit: cover; }
+        video { width: 100%; height: 100%; object-fit: cover; }
 
-        .hidden { display: none !important; opacity: 0; }
-        .fade-in { animation: fadeIn 1.2s forwards; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
+        /* --- UTILS --- */
         .music-btn {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            z-index: 1000;
-            background: white;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
+            background: white;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
             cursor: pointer;
-            font-size: 1.4rem;
         }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-        .small-card { padding: 15px; }
-        .small-card img { width: 100%; height: auto; border-radius: 12px; }
+        .fade-in { animation: fadeIn 1.2s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .heart-burst { animation: heartPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
-        @keyframes heartPop { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+
+        .corner-flower { position: absolute; font-size: 20px; opacity: 0.5; }
+        .top-left { top: 10px; left: 10px; }
+        .bottom-right { bottom: 10px; right: 10px; }
     </style>
 </head>
 <body>
 
-<div id="bg-elements"></div>
+    <header>
+        <div class="header-chip">
+            Made by sivasingh 💖 @smss1708
+        </div>
+    </header>
 
-<header>
-    <h2>Made by sivasingh 💖</h2>
-    <p>@smss1708</p>
-</header>
+    <div class="flower-bed" id="flower-bed"></div>
 
-<div class="music-btn" id="mToggle" onclick="toggleMusic()">🎵</div>
+    <div class="container" id="main-container">
+        <div id="intro-card" class="card fade-in">
+            <span class="corner-flower top-left">🌸</span>
+            <img src="intro.gif" alt="Intro">
+            <h2>Hey Babu 💖</h2>
+            <p>Can we talk for a moment?<br>There’s something special I want to show you…</p>
+            <button class="btn" onclick="initExperience()">Open 💌</button>
+            <span class="corner-flower bottom-right">🌸</span>
+        </div>
 
-<div class="container" id="main-content">
-    <div class="card fade-in" id="intro-card">
-        <img src="intro.gif" alt="Intro">
-        <h3>Hey Babu 💖</h3>
-        <p>Can we talk for a moment?<br>There’s something special I want to show you…</p>
-        <button onclick="startExperience()">Open 💌</button>
-    </div>
-
-    <div id="messages" class="hidden">
-        <div class="card">
+        <div id="section-1" class="card">
             <img src="rose.gif" alt="Rose">
             <p>Babu 💖<br>Tum meri zindagi ka sabse khoobsurat ehsaas ho…</p>
         </div>
 
-        <div class="grid-2">
-            <div class="card small-card"><img src="heart1.gif" alt="H1"></div>
-            <div class="card small-card"><img src="heart2.gif" alt="H2"></div>
-        </div>
-        <div class="card" style="margin-top: -15px;">
+        <div id="section-2" class="card">
+            <div class="grid-2">
+                <img src="heart1.gif" alt="Heart1">
+                <img src="heart2.gif" alt="Heart2">
+            </div>
             <p>Har dhadkan sirf tumhare naam…</p>
         </div>
 
-        <div class="grid-3" id="burst-group">
-            <div class="card small-card"><img src="hug.gif" alt="Hug"></div>
-            <div class="card small-card"><img src="kiss.gif" alt="Kiss"></div>
-            <div class="card small-card"><img src="cute.gif" alt="Cute"></div>
+        <div id="section-3" class="grid-3" style="display:none;">
+            <div class="card" style="display:block;">
+                <img src="hug.gif" alt="Hug">
+                <p>Tu hai toh sab hai...</p>
+            </div>
+            <div class="card" style="display:block;">
+                <img src="kiss.gif" alt="Kiss">
+                <p>Dher saara pyaar...</p>
+            </div>
+            <div class="card" style="display:block;">
+                <img src="cute.gif" alt="Cute">
+                <p>Mere sabse pyaare babu!</p>
+            </div>
         </div>
 
-        <div class="card">
+        <div id="section-4" class="card">
             <img src="promise.gif" alt="Promise">
             <p>Babu 💖<br>Main sirf aaj nahi,<br>har din tumhe chunta hoon… 🌹</p>
         </div>
 
-        <div class="card" id="final-card" style="padding-bottom: 60px;">
-            <img src="endlove.gif" alt="End">
-            <h3>Will you stay with me forever, Babu? 💖</h3>
+        <div id="section-final" class="card">
+            <img src="endlove.gif" alt="Final">
+            <h2>Will you stay with me forever, Babu? 💖</h2>
         </div>
     </div>
-</div>
 
-<div id="video-container">
-    <video id="love-video" playsinline>
-        <source src="intro-love.mp4" type="video/mp4">
-    </video>
-</div>
+    <div id="video-overlay">
+        <video id="love-video" playsinline>
+            <source src="intro-love.mp4" type="video/mp4">
+        </video>
+    </div>
 
-<audio id="bg-music" loop>
-    <source src="tere-liye.mp3" type="audio/mpeg">
-</audio>
+    <div class="music-btn" onclick="toggleMute()">🎵</div>
 
-<script>
-    const bgMusic = document.getElementById('bg-music');
-    const loveVideo = document.getElementById('love-video');
-    const videoCont = document.getElementById('video-container');
-    const bgElements = document.getElementById('bg-elements');
-    bgMusic.volume = 0.35;
+    <audio id="bg-audio" loop>
+        <source src="tere-liye.mp3" type="audio/mpeg">
+    </audio>
 
-    function createDecorations() {
-        for(let i=0; i<12; i++) {
+    <script>
+        const audio = document.getElementById('bg-audio');
+        const video = document.getElementById('love-video');
+        const videoOverlay = document.getElementById('video-overlay');
+        audio.volume = 0.35;
+
+        // --- CORE LOGIC ---
+        function initExperience() {
+            audio.play().catch(e => console.log("Click again to play"));
+            document.getElementById('intro-card').style.display = 'none';
+            videoOverlay.style.display = 'flex';
+            audio.pause();
+            video.play();
+        }
+
+        video.onended = () => {
+            videoOverlay.classList.add('fade-out');
             setTimeout(() => {
-                const b = document.createElement('div');
-                b.className = 'butterfly';
-                b.innerHTML = '🦋';
-                b.style.left = Math.random() * 100 + 'vw';
-                b.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                bgElements.appendChild(b);
-            }, i * 1500);
+                videoOverlay.style.display = 'none';
+                audio.play();
+                showContent();
+            }, 800);
+        };
+
+        function showContent() {
+            const sections = ['section-1', 'section-2', 'section-3', 'section-4', 'section-final'];
+            sections.forEach((id, i) => {
+                setTimeout(() => {
+                    const el = document.getElementById(id);
+                    el.style.display = id === 'section-3' ? 'grid' : 'block';
+                    el.classList.add('fade-in');
+                    window.scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' });
+                }, i * 2800);
+            });
         }
 
-        setInterval(() => {
+        function toggleMute() {
+            audio.muted = !audio.muted;
+        }
+
+        // --- ANIMATIONS ---
+        function createFlower() {
+            const bed = document.getElementById('flower-bed');
+            const f = document.createElement('div');
+            f.className = 'flower';
+            f.style.left = Math.random() * 100 + '%';
+            f.style.animationDelay = Math.random() * 2 + 's';
+            f.innerHTML = `
+                <div class="petals">
+                    ${[0,72,144,216,288].map(d => `<div class="petal" style="transform: rotate(${d}deg) translateY(-12px)"></div>`).join('')}
+                </div>
+                <div class="stem"><div class="leaf"></div><div class="leaf right"></div></div>
+            `;
+            bed.appendChild(f);
+        }
+
+        function spawnButterfly() {
+            const b = document.createElement('div');
+            b.className = 'butterfly';
+            b.innerHTML = '🦋';
+            b.style.left = '-50px';
+            b.style.top = Math.random() * 80 + 'vh';
+            document.body.appendChild(b);
+
+            b.animate([
+                { transform: `translate(0, 0) rotate(0deg)` },
+                { transform: `translate(${window.innerWidth + 100}px, ${Math.random() * 200 - 100}px) rotate(20deg)` }
+            ], { duration: 12000 + Math.random() * 5000, easing: 'linear' }).onfinish = () => b.remove();
+        }
+
+        function spawnHeart() {
             const h = document.createElement('div');
-            h.className = 'heart-float';
-            h.innerHTML = Math.random() > 0.5 ? '💖' : '🌸';
+            h.className = 'heart';
+            h.innerHTML = '💖';
             h.style.left = Math.random() * 100 + 'vw';
-            h.style.fontSize = (Math.random() * 15 + 10) + 'px';
-            h.style.animationDuration = (Math.random() * 3 + 5) + 's';
-            bgElements.appendChild(h);
-            setTimeout(() => h.remove(), 8000);
-        }, 500);
-    }
-
-    function startExperience() {
-        document.getElementById('intro-card').style.display = 'none';
-        videoCont.style.display = 'flex';
-        bgMusic.pause();
-        loveVideo.play().catch(e => console.log("Auto-play blocked, playing video..."));
-    }
-
-    loveVideo.onended = function() {
-        videoCont.style.opacity = '0';
-        setTimeout(() => {
-            videoCont.style.display = 'none';
-            document.getElementById('messages').classList.remove('hidden');
-            document.getElementById('messages').classList.add('fade-in');
-            bgMusic.play();
-            document.querySelectorAll('#burst-group .card').forEach(c => c.classList.add('heart-burst'));
-        }, 1000);
-    };
-
-    function toggleMusic() {
-        if (bgMusic.paused) {
-            bgMusic.play();
-            document.getElementById('mToggle').innerHTML = '🎵';
-        } else {
-            bgMusic.pause();
-            document.getElementById('mToggle').innerHTML = '🔇';
+            h.style.bottom = '-20px';
+            h.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 6000);
         }
-    }
 
-    window.onload = createDecorations;
-    document.body.addEventListener('click', () => {
-        if(bgMusic.paused && videoCont.style.display !== 'flex') bgMusic.play();
-    }, { once: true });
-</script>
+        // Initialize Background
+        for(let i=0; i<10; i++) createFlower();
+        setInterval(spawnButterfly, 5000);
+        setInterval(spawnHeart, 1500);
+
+        // Interaction fix
+        document.body.addEventListener('click', () => {
+            if(audio.paused && video.paused) audio.play();
+        }, { once: true });
+    </script>
 </body>
 </html>
