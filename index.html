@@ -1,785 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>For My Queen Khusi | Valentine's Day</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
-    :root {
-        --primary-red: #ff0033;
-        --neon-pink: #ff007f;
-        --deep-black: #0a0a0a;
-        --luxury-gold: #d4af37;
-        --soft-glow: 0 0 20px rgba(255, 0, 127, 0.6);
-        --transition-speed: 0.8s;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-        background-color: var(--deep-black);
-        color: white;
-        font-family: 'Montserrat', sans-serif;
-        overflow: hidden;
-        width: 100vw;
-        height: 100vh;
-    }
-
-    /* --- LAYOUT & PAGES --- */
-    .page {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: radial-gradient(circle at center, #1a0a0a 0%, #050505 100%);
-        overflow: hidden;
-        z-index: 10;
-    }
-
-    .active {
-        display: flex;
-        animation: fadeIn var(--transition-speed) ease-in-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(1.05); }
-        to { opacity: 1; transform: scale(1); }
-    }
-
-    /* --- LOADING SCREEN --- */
-    #loader {
-        display: flex;
-        z-index: 100;
-        background: #000;
-    }
-
-    .neon-heart-loader {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        background: transparent;
-        filter: drop-shadow(var(--soft-glow));
-    }
-
-    .neon-heart-loader svg {
-        fill: none;
-        stroke: var(--neon-pink);
-        stroke-width: 2;
-        stroke-dasharray: 300;
-        stroke-dashoffset: 300;
-        animation: heartStroke 2.5s ease-in-out infinite;
-    }
-
-    @keyframes heartStroke {
-        0% { stroke-dashoffset: 300; }
-        50% { stroke-dashoffset: 0; }
-        100% { stroke-dashoffset: -300; }
-    }
-
-    /* --- BUTTONS --- */
-    .btn-luxury {
-        margin-top: 30px;
-        padding: 15px 40px;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: white;
-        background: transparent;
-        border: 1px solid var(--neon-pink);
-        border-radius: 50px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        transition: 0.4s;
-        box-shadow: var(--soft-glow);
-        z-index: 50;
-    }
-
-    .btn-luxury:hover {
-        background: var(--neon-pink);
-        box-shadow: 0 0 40px var(--neon-pink);
-        transform: translateY(-3px);
-    }
-
-    /* --- MAIN INTRO (PAGE 1) --- */
-    .title-text {
-        font-family: 'Great Vibes', cursive;
-        font-size: 3.5rem;
-        text-align: center;
-        color: var(--primary-red);
-        text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
-        margin-bottom: 10px;
-        opacity: 0;
-        animation: slideUp 1.5s ease-out forwards 0.5s;
-    }
-
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* --- VIDEO PAGE (PAGE 2) --- */
-    #video-container {
-        width: 100%;
-        height: 100%;
-        background: #000;
-    }
-
-    #introVideo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    /* --- NAME & CROWN (PAGE 3) --- */
-    .crown-container {
-        position: relative;
-        margin-bottom: -10px;
-    }
-
-    .crown {
-        font-size: 3rem;
-        color: var(--luxury-gold);
-        filter: drop-shadow(0 0 10px gold);
-        animation: float 3s ease-in-out infinite;
-    }
-
-    .khusi-name {
-        font-family: 'Playfair Display', serif;
-        font-size: 5rem;
-        font-weight: 700;
-        background: linear-gradient(to bottom, #fff, #ff007f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 5px;
-        text-shadow: 2px 2px 20px rgba(255, 0, 127, 0.5);
-        position: relative;
-    }
-
-    .typing-effect::after {
-        content: '|';
-        animation: blink 0.7s infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(-5deg); }
-        50% { transform: translateY(-15px) rotate(5deg); }
-    }
-
-    @keyframes blink {
-        50% { opacity: 0; }
-    }
-
-    /* --- HEART INTERACTION (PAGE 4) --- */
-    .beating-heart {
-        width: 200px;
-        cursor: pointer;
-        transition: 0.3s;
-        filter: drop-shadow(0 0 30px var(--primary-red));
-        animation: pulse 1.2s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        15% { transform: scale(1.15); }
-        30% { transform: scale(1); }
-        45% { transform: scale(1.25); }
-        100% { transform: scale(1); }
-    }
-
-    .heart-message {
-        position: absolute;
-        font-size: 1.5rem;
-        font-family: 'Dancing Script', cursive;
-        color: white;
-        pointer-events: none;
-        animation: floatAway 2s forwards;
-    }
-
-    @keyframes floatAway {
-        to { transform: translateY(-150px); opacity: 0; }
-    }
-
-    /* --- LOVE LETTER (PAGE 5) --- */
-    .envelope-wrapper {
-        perspective: 1000px;
-    }
-
-    .envelope {
-        width: 300px;
-        height: 200px;
-        background: #4a0000;
-        position: relative;
-        transform-style: preserve-3d;
-        transition: 1s;
-        cursor: pointer;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .envelope.open {
-        transform: rotateX(20deg);
-    }
-
-    .flap {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #6e0000;
-        clip-path: polygon(0 0, 100% 0, 50% 50%);
-        z-index: 3;
-        transition: 0.6s;
-        transform-origin: top;
-    }
-
-    .envelope.open .flap {
-        transform: rotateX(180deg);
-    }
-
-    .letter-card {
-        position: absolute;
-        top: 5px;
-        left: 10px;
-        width: 280px;
-        height: 180px;
-        background: #fff;
-        color: #333;
-        padding: 20px;
-        font-family: 'Dancing Script', cursive;
-        transition: 0.8s;
-        z-index: 2;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-    }
-
-    .envelope.open .letter-card {
-        transform: translateY(-100px);
-        height: 250px;
-    }
-
-    /* --- ANIMATIONS PAGES (PAGE 6-10) --- */
-    .canvas-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
-
-    .quote-float {
-        position: absolute;
-        font-family: 'Dancing Script', cursive;
-        font-size: 1.5rem;
-        color: rgba(255, 255, 255, 0.8);
-        white-space: nowrap;
-        animation: slideRight linear infinite;
-    }
-
-    @keyframes slideRight {
-        from { left: -100%; }
-        to { left: 100%; }
-    }
-
-    /* --- FOOTER --- */
-    .footer {
-        margin-top: 50px;
-        font-size: 0.8rem;
-        color: #666;
-        text-align: center;
-    }
-
-    .insta-placeholder {
-        width: 24px;
-        margin-top: 10px;
-        opacity: 0.5;
-        filter: invert(1);
-    }
-
-    /* --- PARTICLES & GIFS --- */
-    .floating-gif {
-        position: absolute;
-        width: 60px;
-        opacity: 0.6;
-        pointer-events: none;
-    }
-
-    .top-left { top: 20px; left: 20px; }
-    .bottom-right { bottom: 20px; right: 20px; }
-
-    /* --- AUDIO UI (HIDDEN) --- */
-    #audio-player { display: none; }
-</style>
-
+    <meta charset="UTF-8">
+    <title>Romantic Code Copy Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #fff5f7; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .copy-container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255,143,163,0.2); text-align: center; border: 2px solid #ffccd5; }
+        h1 { color: #d63384; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 30px; }
+        .copy-btn { background: #ff4d6d; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(255,77,109,0.3); }
+        .copy-btn:hover { background: #c9184a; transform: scale(1.05); }
+        .copy-btn:active { transform: scale(0.95); }
+        #status { margin-top: 15px; color: #2ecc71; font-weight: bold; display: none; }
+        textarea { display: none; }
+    </style>
 </head>
 <body>
-<canvas id="particleCanvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:1;"></canvas>
 
-<section id="loader" class="page active">
-    <div class="neon-heart-loader">
-        <svg viewBox="0 0 100 100">
-            <path d="M50 85 C20 65, 5 45, 5 25 A20 20 0 0 1 45 20 A20 20 0 0 1 85 25 C85 45, 70 65, 50 85" />
-        </svg>
+    <div class="copy-container">
+        <h1>For Khushi 💖</h1>
+        <p>Click below to copy the full HTML code for your website.</p>
+        <button class="copy-btn" onclick="copyCode()">Copy Website Code 📋</button>
+        <div id="status">✅ Copied! Paste it in index.html</div>
     </div>
-    <p style="margin-top:20px; letter-spacing: 5px; font-size: 0.7rem; color: var(--neon-pink);">INITIALIZING LOVE...</p>
-</section>
 
-<section id="page1" class="page">
-    <img src="heart.gif" class="floating-gif top-left" alt="">
-    <h1 class="title-text">Happy Valentine’s Day ❤️</h1>
-    <p style="font-weight:300; opacity: 0.7;">Welcome to my digital heart</p>
-    <button class="btn-luxury" onclick="nextPage(2)">Enter My Heart</button>
-    <img src="rose.gif" class="floating-gif bottom-right" alt="">
-</section>
-
-<section id="page2" class="page">
-    <div id="video-container">
-        <video id="introVideo" playsinline muted>
-            <source src="couple.mp4" type="video/mp4">
-            </video>
-    </div>
-</section>
-
-<section id="page3" class="page">
-    <div class="crown-container">
-        <div class="crown">👑</div>
-    </div>
-    <h2 class="khusi-name" id="khusi-text"></h2>
-    <p style="font-family: 'Playfair Display', serif; font-style: italic; color: var(--luxury-gold);">You are the queen of my heart</p>
-    <button class="btn-luxury" onclick="nextPage(4)">My Love</button>
-</section>
-
-<section id="page4" class="page">
-    <div id="heart-tap-zone" onclick="createHeartPop(event)">
-        <svg class="beating-heart" viewBox="0 0 32 32">
-            <path fill="#ff0033" d="M16 28.5L14.1 26.8C7.33 20.65 3 16.5 3 11.5 3 7.36 6.36 4 10.5 4c2.34 0 4.58 1.1 6 3.01C17.92 5.1 20.16 4 22.5 4 26.64 4 30 7.36 30 11.5c0 5-4.33 9.15-11.1 15.3z" />
-        </svg>
-    </div>
-    <p style="margin-top: 40px; color: #ff007f;">Tap the heart to feel my pulse</p>
-    <button class="btn-luxury" onclick="nextPage(5)">Read My Note</button>
-</section>
-
-<section id="page5" class="page">
-    <div class="envelope-wrapper">
-        <div class="envelope" id="envelope" onclick="openEnvelope()">
-            <div class="flap"></div>
-            <div class="letter-card" id="letter-content">
-                "Every heartbeat whispers your name..."
+<textarea id="websiteCode">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Khushi 💖</title>
+    <style>
+        :root { --p-pink: #ffd1dc; --p-peach: #fff5e1; --glass: rgba(255, 255, 255, 0.45); --glass-border: rgba(255, 255, 255, 0.6); --rose: #d63384; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body, html { height: 100%; width: 100%; overflow: hidden; background: linear-gradient(135deg, var(--p-pink), var(--p-peach), #ffffff); }
+        #bg { position: fixed; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .heart { position: absolute; color: #ff8fa3; animation: floatUp 6s linear infinite; font-size: 20px; }
+        @keyframes floatUp { 0% { transform: translateY(110vh) scale(0.5); opacity: 0; } 20% { opacity: 0.7; } 100% { transform: translateY(-15vh) scale(1.5); opacity: 0; } }
+        .butterfly { position: absolute; font-size: 25px; z-index: 1; animation: fly 15s linear infinite; opacity: 0.8; }
+        @keyframes fly { 0% { transform: translate(-10vw, 80vh); } 50% { transform: translate(50vw, 20vh); } 100% { transform: translate(110vw, 40vh); } }
+        header { position: fixed; top: 15px; width: 100%; text-align: center; z-index: 100; }
+        .made-by { background: var(--glass); backdrop-filter: blur(5px); border: 1px solid var(--glass-border); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: var(--rose); display: inline-block; }
+        #mute-btn { position: fixed; bottom: 20px; right: 20px; z-index: 200; width: 45px; height: 45px; border-radius: 50%; background: var(--glass); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .section { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 1.2s; transform: scale(0.9); z-index: 10; padding: 20px; }
+        .section.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 30px; padding: 30px; width: 100%; max-width: 350px; text-align: center; }
+        #vid-wrap { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 150; display: none; align-items: center; }
+        #vid { width: 100%; height: 100%; object-fit: cover; }
+        .book { width: 160px; height: 220px; perspective: 1200px; cursor: pointer; margin: 10px; }
+        .book-in { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: 1.2s; }
+        .book.open .book-in { transform: rotateY(-150deg); }
+        .b-front, .b-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .b-front { background: white; z-index: 2; }
+        .b-back { background: #fffafa; transform: rotateY(180deg); text-align: center; color: #555; font-size: 13px; }
+        .btn { background: #ff8fa3; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        .pop { position: absolute; pointer-events: none; animation: pop 0.8s ease-out forwards; }
+        @keyframes pop { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(2); opacity: 0; } }
+    </style>
+</head>
+<body>
+    <div id="bg"></div>
+    <header><div class="made-by">Made by sivasingh 💖 @smss1708</div></header>
+    <div id="mute-btn" onclick="toggle()">🎵</div>
+    <section id="s-intro" class="section active">
+        <div class="card">
+            <img src="intro.gif" style="width:100px;margin-bottom:20px">
+            <h2 style="color:var(--rose)">Hey Babu 💖</h2>
+            <p style="margin:15px 0; color:#666">Can we talk for a moment?<br>There's something special I want to show you...</p>
+            <button class="btn" onclick="start()">Open 💌</button>
+        </div>
+    </section>
+    <div id="vid-wrap"><video id="vid" playsinline><source src="intro-love.mp4" type="video/mp4"></video></div>
+    <section id="s1" class="section">
+        <div class="book" onclick="nextB(this, 's2')">
+            <div class="book-in">
+                <div class="b-front"><img src="rose.gif" style="width:70px"><small style="color:#aaa">Tap to open</small></div>
+                <div class="b-back"><b>Khushi 💖</b><br><br>You are the most beautiful feeling of my life. Every smile of yours makes my world brighter...</div>
             </div>
         </div>
-    </div>
-    <p id="letter-instruction" style="margin-top: 150px; font-size: 0.8rem; color: #888;">Tap to open your letter</p>
-    <button class="btn-luxury" style="margin-top: 50px;" onclick="nextPage(6)">Magical Moments</button>
-</section>
-
-<section id="page6" class="page">
-    <canvas id="neonCanvas" class="canvas-bg"></canvas>
-    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">Infinite Love</h3>
-    <button class="btn-luxury" onclick="nextPage(7)">More Magic</button>
-</section>
-
-<section id="page7" class="page">
-    <canvas id="rainbowCanvas" class="canvas-bg"></canvas>
-    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">Colors of You</h3>
-    <button class="btn-luxury" onclick="nextPage(8)">Feel the Spark</button>
-</section>
-
-<section id="page8" class="page">
-    <canvas id="heartParticleCanvas" class="canvas-bg"></canvas>
-    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">A Thousand Hearts</h3>
-    <button class="btn-luxury" onclick="nextPage(9)">The Grand Finale</button>
-</section>
-
-<section id="page9" class="page">
-    <canvas id="fireworksCanvas" class="canvas-bg"></canvas>
-    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">Our Celebration</h3>
-    <button class="btn-luxury" onclick="nextPage(10)">Final Message</button>
-</section>
-
-<section id="page10" class="page">
-    <div id="quote-container" style="width:100%; height:50%;"></div>
-    <div style="text-align:center; z-index: 10;">
-        <img src="love.gif" style="width:120px; border-radius: 50%; border: 2px solid var(--neon-pink); margin-bottom: 20px;">
-        <h2 style="font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--primary-red);">Forever Yours, Khusi</h2>
-    </div>
-    
-    <div class="footer">
-        <p>Made with ❤️ by Sivasingh</p>
-        <div class="insta-placeholder">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </section>
+    <section id="s2" class="section">
+        <div style="display:flex;gap:10px">
+            <div class="book" style="width:140px;height:180px" onclick="multi(this, 2, 's3')">
+                <div class="book-in"><div class="b-front"><img src="heart1.gif" style="width:40px"></div><div class="b-back">My every heartbeat whispers your name...</div></div>
+            </div>
+            <div class="book" style="width:140px;height:180px" onclick="multi(this, 2, 's3')">
+                <div class="book-in"><div class="b-front"><img src="heart2.gif" style="width:40px"></div><div class="b-back">softly... endlessly... 💕</div></div>
+            </div>
         </div>
-    </div>
-</section>
-
-<audio id="audio-player" preload="auto"></audio>
-<audio id="heartbeat-sfx" src="[https://assets.mixkit.co/sfx/preview/mixkit-human-single-heart-beat-490.mp3](https://assets.mixkit.co/sfx/preview/mixkit-human-single-heart-beat-490.mp3)"></audio>
+    </section>
+    <section id="s3" class="section">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="book" style="width:130px;height:160px" onclick="multi(this, 3, 's4')"><div class="book-in"><div class="b-front"><img src="hug.gif" style="width:40px"></div><div class="b-back">Your hugs are home.</div></div></div>
+            <div class="book" style="width:130px;height:160px" onclick="multi(this, 3, 's4')"><div class="book-in"><div class="b-front"><img src="kiss.gif" style="width:40px"></div><div class="b-back">Sweetest kisses.</div></div></div>
+            <div class="book" style="width:130px;height:160px;grid-column:span 2;margin:0 auto" onclick="multi(this, 3, 's4')"><div class="book-in"><div class="b-front"><img src="cute.gif" style="width:40px"></div><div class="b-back">Simply the best!</div></div></div>
+        </div>
+    </section>
+    <section id="s4" class="section">
+        <div class="book" style="width:200px;height:260px" onclick="nextB(this, 'sf')">
+            <div class="book-in"><div class="b-front"><img src="promise.gif" style="width:80px"><h3>A Promise</h3></div>
+            <div class="b-back"><h3>Khushi 💖</h3><br>Not just today, I choose you... Every single day 🌹</div></div>
+        </div>
+    </section>
+    <section id="sf" class="section">
+        <div class="card"><img src="endlove.gif" style="width:100px"><h2 style="color:var(--rose)">Will you stay with me forever, Khushi? 💖</h2></div>
+    </section>
+    <audio id="mus" loop><source src="tere-liye.mp3" type="audio/mpeg"></audio>
+    <script>
+        const a=document.getElementById('mus'), v=document.getElementById('vid'), vw=document.getElementById('vid-wrap'), bg=document.getElementById('bg');
+        a.volume=0.35;
+        function hearts(){ const h=document.createElement('div'); h.className='heart'; h.innerHTML='💖'; h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*3+4)+'s'; bg.appendChild(h); setTimeout(()=>h.remove(),6000); }
+        setInterval(hearts,500);
+        for(let i=0;i<5;i++){ const b=document.createElement('div'); b.className='butterfly'; b.innerHTML='🦋'; b.style.top=Math.random()*80+'vh'; b.style.left='-50px'; b.style.animationDelay=(i*3)+'s'; bg.appendChild(b); }
+        function start(){ a.play().catch(()=>{}); document.getElementById('s-intro').classList.remove('active'); setTimeout(()=>{ vw.style.display='flex'; a.pause(); v.play(); },1000); }
+        v.onended=()=>{ vw.style.opacity='0'; setTimeout(()=>{ vw.style.display='none'; a.play(); show('s1'); },1000); };
+        function show(id){ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+        function nextB(el,id){ if(el.classList.contains('open'))return; el.classList.add('open'); pop(el); setTimeout(()=>show(id),3500); }
+        let c=0; function multi(el,r,id){ if(el.classList.contains('open'))return; el.classList.add('open'); pop(el); c++; if(c>=r){c=0; setTimeout(()=>show(id),3500);} }
+        function pop(el){ const r=el.getBoundingClientRect(); for(let i=0;i<6;i++){ const p=document.createElement('div'); p.className='pop'; p.innerHTML='❤️'; p.style.left=(r.left+r.width/2)+'px'; p.style.top=(r.top+r.height/2)+'px'; p.style.transform=`translate(${(Math.random()-0.5)*150}px, ${(Math.random()-0.5)*150}px)`; document.body.appendChild(p); setTimeout(()=>p.remove(),800); } }
+        function toggle(){ if(a.paused)a.play(); else a.pause(); }
+    </script>
+</body>
+</html>
+</textarea>
 
 <script>
-    // --- GLOBAL STATE ---
-    let currentPage = 0;
-    const totalPages = 10;
-    const songs = [
-        { name: "Until I Found You", url: "[https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3)" }, // Placeholders
-        { name: "Perfect", url: "[https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3)" },
-        { name: "Blue", url: "[https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3)" }
-    ];
-
-    const audio = document.getElementById('audio-player');
-    const heartbeatSfx = document.getElementById('heartbeat-sfx');
-
-    // --- PAGE NAVIGATION ---
-    function nextPage(pageNumber) {
-        const currentEl = document.querySelector('.active');
-        const nextEl = document.getElementById('page' + pageNumber);
-
-        if (currentEl) currentEl.classList.remove('active');
-        nextEl.classList.add('active');
-        currentPage = pageNumber;
-
-        handlePageTrigger(pageNumber);
-    }
-
-    // --- TRIGGERS ON PAGE LOAD ---
-    function handlePageTrigger(num) {
-        if (num === 2) {
-            const video = document.getElementById('introVideo');
-            video.play().catch(e => console.log("Video autoplay blocked"));
-            video.onended = () => {
-                video.parentElement.style.opacity = '0';
-                setTimeout(() => {
-                    nextPage(3);
-                    playMusic(0);
-                }, 1000);
-            };
-        }
-
-        if (num === 3) {
-            typeWriter("KHUSI", "khusi-text");
-            playMusic(0);
-        }
-
-        if (num === 5) playMusic(1);
-        if (num === 6) initNeonAnimation();
-        if (num === 7) initRainbowAnimation();
-        if (num === 8) initHeartParticles();
-        if (num === 9) {
-            initFireworks();
-            playMusic(2);
-        }
-        if (num === 10) initQuoteFloat();
-    }
-
-    // --- MUSIC LOGIC ---
-    function playMusic(index) {
-        // Simplified logic: index is specific song
-        const targetSrc = songs[index].url;
-        if (audio.src !== targetSrc) {
-            fadeOutAudio(() => {
-                audio.src = targetSrc;
-                audio.play();
-                fadeInAudio();
-            });
-        }
-    }
-
-    function fadeOutAudio(callback) {
-        let vol = audio.volume;
-        const interval = setInterval(() => {
-            if (vol > 0.1) {
-                vol -= 0.1;
-                audio.volume = vol;
-            } else {
-                clearInterval(interval);
-                audio.pause();
-                if (callback) callback();
-            }
-        }, 100);
-    }
-
-    function fadeInAudio() {
-        audio.volume = 0;
-        let vol = 0;
-        const interval = setInterval(() => {
-            if (vol < 0.9) {
-                vol += 0.1;
-                audio.volume = vol;
-            } else {
-                clearInterval(interval);
-            }
-        }, 100);
-    }
-
-    // --- TYPING EFFECT ---
-    function typeWriter(text, elementId) {
-        const el = document.getElementById(elementId);
-        el.innerHTML = "";
-        el.classList.add('typing-effect');
-        let i = 0;
-        function type() {
-            if (i < text.length) {
-                el.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, 200);
-            } else {
-                setTimeout(() => el.classList.remove('typing-effect'), 1000);
-            }
-        }
-        type();
-    }
-
-    // --- HEART POP INTERACTION ---
-    function createHeartPop(e) {
-        const container = document.getElementById('page4');
-        const msg = document.createElement('div');
-        msg.className = 'heart-message';
-        msg.innerText = 'I ❤️ Love You Khusi';
-        msg.style.left = e.clientX + 'px';
-        msg.style.top = e.clientY + 'px';
-        container.appendChild(msg);
+    function copyCode() {
+        var copyText = document.getElementById("websiteCode");
+        copyText.style.display = "block";
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        copyText.style.display = "none";
         
-        heartbeatSfx.currentTime = 0;
-        heartbeatSfx.play();
-
-        setTimeout(() => msg.remove(), 2000);
+        var status = document.getElementById("status");
+        status.style.display = "block";
+        setTimeout(() => { status.style.display = "none"; }, 3000);
     }
-
-    // --- ENVELOPE LOGIC ---
-    let currentLetterIdx = 0;
-    const loveQuotes = [
-        "Every heartbeat whispers your name",
-        "You are my today and all my tomorrows",
-        "With you, love feels magical",
-        "Forever starts with you",
-        "You're the most beautiful dream come true"
-    ];
-
-    function openEnvelope() {
-        const env = document.getElementById('envelope');
-        const card = document.getElementById('letter-content');
-        const instr = document.getElementById('letter-instruction');
-        
-        if (!env.classList.contains('open')) {
-            env.classList.add('open');
-            instr.innerText = "Tap card to flip messages";
-        } else {
-            currentLetterIdx = (currentLetterIdx + 1) % loveQuotes.length;
-            card.style.opacity = '0';
-            setTimeout(() => {
-                card.innerText = loveQuotes[currentLetterIdx];
-                card.style.opacity = '1';
-            }, 400);
-        }
-    }
-
-    // --- CANVAS ANIMATIONS ---
-
-    // 1. NEON SPIN
-    function initNeonAnimation() {
-        const canvas = document.getElementById('neonCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let angle = 0;
-
-        function animate() {
-            if (currentPage !== 6) return;
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            const x = canvas.width / 2 + Math.cos(angle) * 100;
-            const y = canvas.height / 2 + Math.sin(angle * 2) * 100;
-
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, Math.PI * 2);
-            ctx.fillStyle = '#ff007f';
-            ctx.shadowBlur = 20;
-            ctx.shadowColor = '#ff007f';
-            ctx.fill();
-            
-            angle += 0.05;
-            requestAnimationFrame(animate);
-        }
-        animate();
-    }
-
-    // 2. RAINBOW CIRCLE
-    function initRainbowAnimation() {
-        const canvas = document.getElementById('rainbowCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let hue = 0;
-
-        function draw() {
-            if (currentPage !== 7) return;
-            ctx.strokeStyle = `hsla(${hue}, 100%, 50%, 0.1)`;
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(canvas.width/2, canvas.height/2, (Math.sin(hue*0.01) * 100) + 150, 0, Math.PI*2);
-            ctx.stroke();
-            hue += 2;
-            requestAnimationFrame(draw);
-        }
-        draw();
-    }
-
-    // 3. HEART PARTICLES
-    function initHeartParticles() {
-        const canvas = document.getElementById('heartParticleCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const hearts = [];
-
-        class Heart {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 10;
-                this.size = Math.random() * 15 + 5;
-                this.speed = Math.random() * 2 + 1;
-                this.opacity = Math.random() * 0.5 + 0.5;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 0, 127, ${this.opacity})`;
-                ctx.font = `${this.size}px serif`;
-                ctx.fillText('❤️', this.x, this.y);
-            }
-            update() {
-                this.y -= this.speed;
-                if (this.y < -20) this.y = canvas.height + 20;
-            }
-        }
-
-        for(let i=0; i<30; i++) hearts.push(new Heart());
-
-        function animate() {
-            if (currentPage !== 8) return;
-            ctx.clearRect(0,0, canvas.width, canvas.height);
-            hearts.forEach(h => { h.update(); h.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-    }
-
-    // 4. FIREWORKS
-    function initFireworks() {
-        const canvas = document.getElementById('fireworksCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        function createFirework() {
-            if (currentPage !== 9) return;
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height;
-            const colors = ['#ff0033', '#ff007f', '#ffd700', '#ffffff'];
-            const color = colors[Math.floor(Math.random()*colors.length)];
-
-            for(let i=0; i<20; i++) {
-                setTimeout(() => {
-                    ctx.beginPath();
-                    ctx.arc(x + (Math.random()-0.5)*100, y + (Math.random()-0.5)*100, 2, 0, Math.PI*2);
-                    ctx.fillStyle = color;
-                    ctx.fill();
-                }, i * 50);
-            }
-            setTimeout(createFirework, 800);
-        }
-        createFirework();
-        
-        function clear() {
-            if (currentPage !== 9) return;
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
-            ctx.fillRect(0,0, canvas.width, canvas.height);
-            requestAnimationFrame(clear);
-        }
-        clear();
-    }
-
-    // 5. QUOTE FLOAT
-    function initQuoteFloat() {
-        const container = document.getElementById('quote-container');
-        loveQuotes.forEach((q, i) => {
-            const span = document.createElement('div');
-            span.className = 'quote-float';
-            span.innerText = q;
-            span.style.top = (20 + i * 15) + '%';
-            span.style.animationDuration = (10 + i * 2) + 's';
-            span.style.animationDelay = (i * 1) + 's';
-            container.appendChild(span);
-        });
-    }
-
-    // --- GLOBAL PARTICLES (BACKGROUND) ---
-    const bgCanvas = document.getElementById('particleCanvas');
-    const bgCtx = bgCanvas.getContext('2d');
-    bgCanvas.width = window.innerWidth;
-    bgCanvas.height = window.innerHeight;
-    const bgParticles = [];
-
-    function initBgParticles() {
-        for(let i=0; i<50; i++) {
-            bgParticles.push({
-                x: Math.random() * bgCanvas.width,
-                y: Math.random() * bgCanvas.height,
-                r: Math.random() * 2,
-                d: Math.random() * 50
-            });
-        }
-    }
-
-    function drawBgParticles() {
-        bgCtx.clearRect(0,0, bgCanvas.width, bgCanvas.height);
-        bgCtx.fillStyle = "rgba(255, 255, 255, 0.3)";
-        bgCtx.beginPath();
-        for(let i=0; i<50; i++) {
-            const p = bgParticles[i];
-            bgCtx.moveTo(p.x, p.y);
-            bgCtx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
-        }
-        bgCtx.fill();
-        updateBgParticles();
-        requestAnimationFrame(drawBgParticles);
-    }
-
-    function updateBgParticles() {
-        for(let i=0; i<50; i++) {
-            const p = bgParticles[i];
-            p.y -= 0.5;
-            if(p.y < 0) p.y = bgCanvas.height;
-        }
-    }
-
-    // --- STARTUP ---
-    window.onload = () => {
-        initBgParticles();
-        drawBgParticles();
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            nextPage(1);
-        }, 3000);
-    };
-
-    // Handle window resize
-    window.onresize = () => {
-        bgCanvas.width = window.innerWidth;
-        bgCanvas.height = window.innerHeight;
-    };
-
 </script>
 
 </body>
