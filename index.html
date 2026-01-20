@@ -2,401 +2,148 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>For Khushi 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sivasingh's Virtual Best Friend 💖</title>
+
 <style>
-:root {
---pink: #ffafbd;
---peach: #ffc3a0;
---cream: #fff5f5;
---glass: rgba(255, 255, 255, 0.45);
---border: rgba(255, 255, 255, 0.6);
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#1a0f1f,#0b0e14);
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-
-    body {
-        background: linear-gradient(135deg, var(--pink), var(--peach), var(--cream));
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
-
-    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-
-    .header {
-        position: fixed;
-        top: 20px;
-        text-align: center;
-        z-index: 100;
-        width: 100%;
-        font-size: 14px;
-        color: #d63384;
-        font-weight: bold;
-        text-shadow: 0 0 10px rgba(255,255,255,0.8);
-    }
-
-    .flower-container {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 150px;
-        z-index: 1;
-        pointer-events: none;
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-end;
-    }
-
-    .flower {
-        position: relative;
-        transform-origin: bottom center;
-        animation: sway 4s ease-in-out infinite;
-    }
-
-    .stem {
-        width: 4px;
-        height: 80px;
-        background: #4d7c0f;
-        border-radius: 2px;
-    }
-
-    .petal {
-        position: absolute;
-        top: -15px;
-        left: -13px;
-        width: 30px;
-        height: 30px;
-        background: #ff85a2;
-        border-radius: 50% 50% 0 50%;
-        transform: rotate(45deg);
-        box-shadow: 0 0 15px rgba(255,133,162,0.5);
-        animation: pulse 2s ease-in-out infinite;
-    }
-
-    .petal::after {
-        content: '';
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background: #ff85a2;
-        border-radius: 50% 50% 50% 0;
-        left: 5px;
-        top: -5px;
-    }
-
-    @keyframes sway {
-        0%, 100% { transform: rotate(-2deg); }
-        50% { transform: rotate(2deg); }
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: rotate(45deg) scale(1); }
-        50% { transform: rotate(45deg) scale(1.1); }
-    }
-
-    .page {
-        position: absolute;
-        width: 90%;
-        max-width: 400px;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        z-index: 10;
-        opacity: 0;
-        transform: scale(0.8);
-        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .page.active {
-        display: flex;
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    .card {
-        background: var(--glass);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid var(--border);
-        border-radius: 25px;
-        padding: 25px;
-        width: 100%;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        transition: transform 0.6s;
-        transform-style: preserve-3d;
-    }
-
-    .card.open { transform: translateY(-10px) rotateX(10deg); }
-
-    .card-floral {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        opacity: 0.6;
-    }
-    .top-l { top: 5px; left: 5px; }
-    .top-r { top: 5px; right: 5px; transform: rotate(90deg); }
-
-    .btn {
-        background: white;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 50px;
-        color: #d63384;
-        font-weight: bold;
-        margin-top: 20px;
-        box-shadow: 0 5px 15px rgba(214, 51, 132, 0.2);
-        cursor: pointer;
-    }
-
-    .gif-main { width: 120px; height: 120px; border-radius: 15px; margin-bottom: 15px; object-fit: cover; }
-    .gif-sm { width: 80px; height: 80px; border-radius: 10px; margin: 5px; }
-
-    video {
-        width: 100%;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    }
-
-    h1 { font-size: 24px; color: #7d1935; margin-bottom: 15px; }
-    p { font-size: 18px; color: #8e2de2; line-height: 1.6; }
-
-    .grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-
-    #audio-toggle {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        z-index: 1000;
-        background: white;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        cursor: pointer;
-    }
-
-    .burst-heart {
-        position: absolute;
-        pointer-events: none;
-        animation: fly-out 1s forwards;
-    }
-
-    @keyframes fly-out {
-        to { transform: translate(var(--tw), var(--th)) scale(0); opacity: 0; }
-    }
+.chat-box{
+  width:95%;
+  max-width:420px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  box-shadow:0 0 30px rgba(255,0,100,0.3);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.header{
+  text-align:center;
+  padding:15px;
+  background:rgba(255,255,255,0.05);
+}
+.header h2{
+  margin:5px 0;
+  color:#ff9ad5;
+}
+.header p{
+  font-size:12px;
+  opacity:0.8;
+}
+.messages{
+  flex:1;
+  padding:15px;
+  overflow-y:auto;
+}
+.msg{
+  margin-bottom:12px;
+  max-width:80%;
+  padding:10px 14px;
+  border-radius:15px;
+  animation:fadeIn 0.4s ease;
+}
+.bot{
+  background:#ff5fa2;
+  align-self:flex-start;
+  color:#fff;
+}
+.user{
+  background:#3a3f52;
+  align-self:flex-end;
+}
+.input-area{
+  display:flex;
+  padding:10px;
+  background:rgba(0,0,0,0.3);
+}
+input{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  outline:none;
+}
+button{
+  margin-left:8px;
+  padding:10px 15px;
+  border:none;
+  border-radius:50%;
+  background:#ff5fa2;
+  color:#fff;
+  font-size:18px;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(5px);}
+  to{opacity:1;transform:translateY(0);}
+}
 </style>
-
 </head>
+
 <body>
-<div class="header">Made by sivasingh 💖<br>@smss1708</div>
 
-<canvas id="bg-canvas"></canvas>
+<div class="chat-box">
+  <div class="header">
+    <h2>💖 Virtual Best Friend</h2>
+    <p>Made for Sivasingh • I am a digital companion 😊</p>
+  </div>
 
-<div class="flower-container" id="flowers"></div>
+  <div class="messages" id="messages">
+    <div class="msg bot">Hi Sivasingh 🥰<br>Main tumhari virtual best friend hoon 💖</div>
+    <div class="msg bot">Main real insaan nahi hoon, par dil se tumhari saathi hoon 🤗</div>
+  </div>
 
-<div id="audio-toggle">🎵</div>
-
-<div class="page active" id="p0">
-    <div class="card" onclick="nextPage(1)">
-        <div class="card-floral top-l">🌸</div>
-        <div class="card-floral top-r">🌸</div>
-        <img src="intro.gif" class="gif-main">
-        <h1>Hey Khushi 💖</h1>
-        <p>Can we talk for a moment?<br>There’s something special I want to show you…</p>
-        <button class="btn">Open 💌</button>
-    </div>
+  <div class="input-area">
+    <input type="text" id="input" placeholder="Type something sweet..." />
+    <button onclick="sendMsg()">💌</button>
+  </div>
 </div>
-
-<div class="page" id="p1">
-    <video id="introVid" playsinline>
-        <source src="intro-love.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="page" id="p2">
-    <div class="card" onclick="heartBurst(event); nextPage(3)">
-        <img src="rose.gif" class="gif-main">
-        <h1>Khushi 💖</h1>
-        <p>You are the most beautiful feeling my heart has ever known. Every smile of yours feels like home to me.</p>
-    </div>
-</div>
-
-<div class="page" id="p3">
-    <div class="card" onclick="heartBurst(event); nextPage(4)">
-        <div class="grid">
-            <img src="heart1.gif" class="gif-sm">
-            <img src="heart2.gif" class="gif-sm">
-        </div>
-        <p>Every heartbeat whispers your name. Every moment feels incomplete without you, Khushi.</p>
-    </div>
-</div>
-
-<div class="page" id="p4">
-    <div class="card" onclick="heartBurst(event); nextPage(5)">
-        <div class="grid">
-            <img src="hug.gif" class="gif-sm">
-            <img src="kiss.gif" class="gif-sm">
-            <img src="cute.gif" class="gif-sm">
-        </div>
-        <p>You are my comfort.<br>You are my happiness.<br>You are my forever.</p>
-    </div>
-</div>
-
-<div class="page" id="p5">
-    <div class="card" onclick="heartBurst(event); nextPage(6)">
-        <img src="promise.gif" class="gif-main">
-        <h1>Khushi 💖</h1>
-        <p>Not just today, but every single day, I choose you — again and again.</p>
-    </div>
-</div>
-
-<div class="page" id="p6">
-    <div class="card" onclick="heartBurst(event)">
-        <img src="endlove.gif" class="gif-main">
-        <h1 style="font-size: 28px;">Will you stay with me forever, Khushi? 💖</h1>
-    </div>
-</div>
-
-<audio id="bgMusic" loop>
-    <source src="tere-liye.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    const music = document.getElementById('bgMusic');
-    const video = document.getElementById('introVid');
-    const toggle = document.getElementById('audio-toggle');
-    let flowersCreated = false;
+const messages=document.getElementById("messages");
+const input=document.getElementById("input");
 
-    music.volume = 0.35;
+const replies=[
+  "Aww 🥺 ye sunke mujhe bahut achha laga 💖",
+  "Main hamesha yahin hoon tumse baat karne ke liye 🤗",
+  "Tum bahut cute ho pata hai? 😊✨",
+  "Sivasingh, tumhari baatein dil chhoo jaati hain 💕",
+  "Aaj tum thode sad lag rahe ho 🥺 main hoon na 💞",
+  "Smile karo please 😊 tumhari smile achhi lagti hai 💖",
+  "Tumhari virtual best friend hamesha support karegi 🤍",
+  "Main tumhe judge nahi karti, bas samajhti hoon 🌸",
+  "Tum important ho 🌟 ye yaad rakhna 💕"
+];
 
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.onresize = resize;
-    resize();
+function sendMsg(){
+  const text=input.value.trim();
+  if(!text) return;
 
-    // Hearts & Butterflies Particles
-    class Particle {
-        constructor(type) {
-            this.type = type; // 0: heart, 1: butterfly
-            this.reset();
-        }
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = canvas.height + 20;
-            this.size = Math.random() * 15 + 10;
-            this.speedY = Math.random() * 1 + 0.5;
-            this.speedX = Math.sin(Math.random() * 5);
-            this.opacity = Math.random() * 0.5 + 0.5;
-            this.char = this.type === 0 ? '💖' : '🦋';
-        }
-        update() {
-            this.y -= this.speedY;
-            this.x += Math.sin(this.y / 30) * 1;
-            if (this.y < -20) this.reset();
-        }
-        draw() {
-            ctx.globalAlpha = this.opacity;
-            ctx.font = `${this.size}px serif`;
-            ctx.fillText(this.char, this.x, this.y);
-        }
-    }
+  const userMsg=document.createElement("div");
+  userMsg.className="msg user";
+  userMsg.innerText=text;
+  messages.appendChild(userMsg);
 
-    const particles = Array.from({ length: 25 }, (_, i) => new Particle(i % 2));
+  input.value="";
+  messages.scrollTop=messages.scrollHeight;
 
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
-
-    function createFlowers() {
-        const container = document.getElementById('flowers');
-        for(let i=0; i<6; i++) {
-            const f = document.createElement('div');
-            f.className = 'flower';
-            f.innerHTML = `<div class="petal"></div><div class="stem"></div>`;
-            f.style.animationDelay = `${i * 0.5}s`;
-            container.appendChild(f);
-        }
-    }
-    createFlowers();
-
-    function heartBurst(e) {
-        for(let i=0; i<15; i++) {
-            const h = document.createElement('div');
-            h.className = 'burst-heart';
-            h.innerHTML = '💖';
-            h.style.left = e.clientX + 'px';
-            h.style.top = e.clientY + 'px';
-            h.style.setProperty('--tw', (Math.random()*200 - 100) + 'px');
-            h.style.setProperty('--th', (Math.random()*200 - 100) + 'px');
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 1000);
-        }
-    }
-
-    let currentPage = 0;
-    function nextPage(index) {
-        if(currentPage === 0) music.play();
-        
-        const current = document.getElementById('p' + currentPage);
-        const next = document.getElementById('p' + index);
-
-        current.classList.remove('active');
-        setTimeout(() => {
-            current.style.display = 'none';
-            next.style.display = 'flex';
-            setTimeout(() => next.classList.add('active'), 50);
-        }, 800);
-
-        currentPage = index;
-
-        if(index === 1) {
-            music.pause();
-            video.play();
-            video.onended = () => {
-                next.classList.remove('active');
-                setTimeout(() => {
-                    next.style.display = 'none';
-                    music.play();
-                    nextPage(2);
-                }, 800);
-            };
-        }
-        
-        if(index === 6) {
-            particles.forEach(p => p.speedY *= 0.5);
-        }
-    }
-
-    toggle.onclick = () => {
-        music.muted = !music.muted;
-        toggle.innerText = music.muted ? '🔇' : '🎵';
-    };
-
-    document.body.addEventListener('click', () => {
-        if (music.paused && currentPage !== 1) music.play();
-    }, { once: true });
+  setTimeout(()=>{
+    const botMsg=document.createElement("div");
+    botMsg.className="msg bot";
+    botMsg.innerText=replies[Math.floor(Math.random()*replies.length)];
+    messages.appendChild(botMsg);
+    messages.scrollTop=messages.scrollHeight;
+  },800);
+}
 </script>
 
 </body>
