@@ -12,11 +12,9 @@
             --bg-dark: #050505;
             --glass: rgba(255, 255, 255, 0.08);
             --text-glow: 0 0 8px var(--neon-pink), 0 0 15px var(--neon-purple);
-            --blue-char-glow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue), 0 0 45px var(--neon-blue);
-            --pink-char-glow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink), 0 0 45px var(--neon-pink);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
         body {
             background-color: var(--bg-dark);
@@ -35,21 +33,8 @@
             font-size: 12px; letter-spacing: 2px; color: rgba(255, 255, 255, 0.6);
             z-index: 1000; text-transform: uppercase;
         }
-        .header-credit strong {
-            color: var(--neon-blue);
-            text-shadow: 0 0 5px var(--neon-blue);
-        }
-        .header-credit span {
-            color: var(--neon-pink);
-            text-shadow: 0 0 5px var(--neon-pink);
-        }
-
-        .audio-control {
-            position: fixed; bottom: 20px; right: 20px; z-index: 1001;
-            background: var(--glass); padding: 12px; border-radius: 50%;
-            backdrop-filter: blur(10px); border: 1px solid var(--neon-pink);
-            cursor: pointer; box-shadow: var(--text-glow);
-        }
+        .header-credit strong { color: var(--neon-blue); text-shadow: 0 0 5px var(--neon-blue); }
+        .header-credit span { color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink); }
 
         .page {
             position: absolute; width: 100%; height: 100%;
@@ -57,392 +42,185 @@
             justify-content: center; padding: 20px; opacity: 0;
             visibility: hidden; transition: 0.8s ease-in-out;
         }
-
         .page.active { opacity: 1; visibility: visible; }
 
+        /* --- STAGE & CHARACTERS --- */
+        .stage {
+            width: 100%; height: 400px;
+            position: relative; margin-bottom: 20px;
+            display: flex; justify-content: center; align-items: flex-end;
+        }
+
+        .human { height: 220px; position: absolute; bottom: 20px; transition: all 3.5s linear; }
+        
+        #boy-svg { left: -150px; fill: var(--neon-blue); filter: drop-shadow(0 0 10px var(--neon-blue)); }
+        #girl-svg { right: 10%; fill: var(--neon-pink); filter: drop-shadow(0 0 10px var(--neon-pink)); }
+
+        /* Walking Animation */
+        .walking .leg-l { animation: walk 0.8s infinite alternate; transform-origin: top; }
+        .walking .leg-r { animation: walk 0.8s infinite alternate-reverse; transform-origin: top; }
+        .walking .arm-r { animation: armSwing 0.8s infinite alternate; transform-origin: top; }
+
+        @keyframes walk { from { transform: rotate(-20deg); } to { transform: rotate(20deg); } }
+        @keyframes armSwing { from { transform: rotate(-15deg); } to { transform: rotate(15deg); } }
+
+        /* Proposal Animation */
+        .proposing { transform: translateY(40px) scaleY(0.85); transition: 1s; }
+        .proposing .arm-r { transform: rotate(-60deg) translateY(-10px); transition: 1s; }
+
+        .rose { 
+            fill: #ff0000; display: none; 
+            filter: drop-shadow(0 0 5px red);
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        /* UI Elements */
         .glass-card {
             background: var(--glass); backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 45, 117, 0.3); border-radius: 25px;
             padding: 25px; text-align: center; width: 100%; max-width: 360px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-            transform: scale(0.8); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.9); transition: 0.5s;
         }
-
-        .glass-card.expanded { transform: scale(1); }
-
+        .expanded { transform: scale(1); }
         .btn-continue {
-            margin-top: 25px; padding: 15px 40px; border-radius: 50px; border: none;
+            margin-top: 20px; padding: 12px 35px; border-radius: 50px; border: none;
             background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
             color: white; font-weight: bold; cursor: pointer;
-            box-shadow: 0 5px 20px rgba(255, 45, 117, 0.5);
         }
-
-        #intro-video {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 2000; background: black; display: none;
-        }
-
-        /* --- REALISTIC NEON CHARACTERS --- */
-        .stage {
-            width: 100%;
-            height: 350px; /* Increased height for characters */
-            position: relative;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center; /* Center characters initially */
-            align-items: flex-end; /* Align to bottom */
-        }
-
-        .neon-char-container {
-            position: absolute;
-            bottom: 0; /* Align to the very bottom of the stage */
-            width: 150px; /* Larger base size for characters */
-            height: 250px; /* Adjusted height */
-            opacity: 0; /* Hidden by default for animation */
-            transition: opacity 1s ease-in-out, transform 3.5s linear; /* For walking */
-        }
-
-        #boy-char {
-            left: -200px; /* Start off-screen */
-            transform: translateX(0); /* Initial position for boy */
-            transition: transform 3.5s linear, opacity 1s ease-in-out;
-        }
-        #boy-char.walk-in {
-            transform: translateX(calc(50vw - 75px + 20px)); /* Walk to left of center */
-        }
-
-        #girl-char {
-            right: 50px; /* Fixed position */
-            opacity: 1; /* Girl is visible from start */
-        }
-        /* Common style for neon lines */
-        .neon-line {
-            position: absolute;
-            background: transparent;
-            border-radius: 50%; /* For rounded ends/circles */
-            box-shadow: 0 0 5px, 0 0 10px, 0 0 20px;
-        }
-
-        /* Boy Character */
-        #boy-char .head {
-            width: 50px; height: 50px;
-            top: 20px; left: 50%; transform: translateX(-50%);
-            border: 4px solid var(--neon-blue);
-            box-shadow: var(--blue-char-glow);
-            border-radius: 50%;
-        }
-        #boy-char .body {
-            width: 4px; height: 80px;
-            top: 70px; left: 50%; transform: translateX(-50%);
-            background: var(--neon-blue);
-            box-shadow: var(--blue-char-glow);
-        }
-        #boy-char .arm.left {
-            width: 4px; height: 50px;
-            top: 75px; left: calc(50% - 22px); transform: rotate(30deg);
-            background: var(--neon-blue);
-            box-shadow: var(--blue-char-glow);
-            transform-origin: top center;
-        }
-        #boy-char .arm.right {
-            width: 4px; height: 50px;
-            top: 75px; left: calc(50% + 18px); transform: rotate(-30deg);
-            background: var(--neon-blue);
-            box-shadow: var(--blue-char-glow);
-            transform-origin: top center;
-            transition: transform 0.8s ease;
-        }
-        #boy-char .leg.left, #boy-char .leg.right {
-            width: 4px; height: 70px;
-            top: 150px;
-            background: var(--neon-blue);
-            box-shadow: var(--blue-char-glow);
-            transform-origin: top center;
-            transition: transform 0.5s ease;
-        }
-        #boy-char .leg.left { left: calc(50% - 12px); transform: rotate(10deg); }
-        #boy-char .leg.right { left: calc(50% + 8px); transform: rotate(-10deg); }
-
-        #boy-rose {
-            position: absolute;
-            width: 20px; height: 20px;
-            background: #ff0000; /* Red for rose */
-            border-radius: 50%;
-            box-shadow: 0 0 8px #ff0000, 0 0 15px #ff0000;
-            top: 120px; /* Position relative to boy */
-            left: 105px; /* Position relative to boy */
-            display: none; /* Hidden initially */
-            z-index: 10;
-        }
-        #boy-char.proposing .leg.left { transform: rotate(40deg); height: 50px; top: 170px;}
-        #boy-char.proposing .leg.right { transform: rotate(-40deg); height: 50px; top: 170px;}
-        #boy-char.proposing .arm.right { transform: rotate(-80deg); top: 85px; left: calc(50% + 5px); } /* Arm up for rose */
-
-
-        /* Girl Character */
-        #girl-char .head {
-            width: 50px; height: 50px;
-            top: 20px; left: 50%; transform: translateX(-50%);
-            border: 4px solid var(--neon-pink);
-            box-shadow: var(--pink-char-glow);
-            border-radius: 50%;
-        }
-        #girl-char .body {
-            width: 4px; height: 90px;
-            top: 70px; left: 50%; transform: translateX(-50%) rotate(5deg);
-            background: var(--neon-pink);
-            box-shadow: var(--pink-char-glow);
-        }
-        #girl-char .dress { /* Triangle dress */
-            position: absolute;
-            width: 0; height: 0;
-            border-left: 30px solid transparent;
-            border-right: 30px solid transparent;
-            border-bottom: 70px solid var(--neon-pink);
-            top: 140px; left: 50%; transform: translateX(-50%);
-            box-shadow: var(--pink-char-glow);
-            z-index: 5;
-        }
-        #girl-char .arm.left, #girl-char .arm.right {
-            width: 4px; height: 50px;
-            top: 75px;
-            background: var(--neon-pink);
-            box-shadow: var(--pink-char-glow);
-            transform-origin: top center;
-        }
-        #girl-char .arm.left { left: calc(50% - 22px); transform: rotate(20deg); }
-        #girl-char .arm.right { left: calc(50% + 18px); transform: rotate(-20deg); }
-
-        #girl-accepted-rose {
-            position: absolute;
-            width: 20px; height: 20px;
-            background: #ff0000; /* Red for rose */
-            border-radius: 50%;
-            box-shadow: 0 0 8px #ff0000, 0 0 15px #ff0000;
-            top: 120px; /* Position relative to girl */
-            left: 30px; /* Position relative to girl's left hand */
-            display: none; /* Hidden initially */
-            z-index: 10;
-        }
-
         #proposal-text {
-            position: absolute; top: 10%; width: 100%; text-align: center;
-            font-size: 2.2rem; font-weight: bold; color: #fff;
+            position: absolute; top: 15%; font-size: 2rem; 
             text-shadow: var(--text-glow); opacity: 0; transition: 1s;
         }
-
-        .show-proposal-text { opacity: 1 !important; transform: scale(1.1); }
-
-        .message-text {
-            font-size: 1.05rem; line-height: 1.6; color: #f0f0f0;
-            opacity: 0; max-height: 0; overflow: hidden; transition: 0.5s ease-in-out;
-        }
-        .message-text.visible { opacity: 1; max-height: 300px; margin-top: 15px; }
-
-        .gif-frame { width: 140px; height: 140px; border-radius: 15px; margin: 0 auto; display: block; object-fit: cover; }
-        .heart-fly { position: fixed; pointer-events: none; animation: moveUp 3s linear forwards; font-size: 25px; }
-        @keyframes moveUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(0.5); opacity: 0; } }
+        .message-text { display: none; margin-top: 15px; font-size: 0.95rem; line-height: 1.5; }
+        .visible { display: block; }
     </style>
 </head>
 <body>
 
     <div class="header-credit">Made by <strong>Sivasingh</strong> for my <span>Pallavi</span> 💖</div>
     <canvas id="bg-canvas"></canvas>
-    <video id="intro-video" playsinline></video>
-
-    <div class="audio-control" onclick="toggleAudio()">
-        <span id="music-icon">🎵</span>
-    </div>
-
-    <audio id="bg-music" loop>
-        <source src="tere-liye.mp3" type="audio/mpeg">
-    </audio>
 
     <div class="page active" id="p1">
-        <div class="glass-card" onclick="initiate()">
-            <img src="intro.gif" class="gif-frame">
-            <h1 style="margin-top:15px; text-shadow: var(--text-glow);">Hey Pallavi 💖</h1>
-            <p style="color:rgba(255,255,255,0.8);">Click to see a message from my heart...</p>
-            <button class="btn-continue">Open 💌</button>
+        <div class="glass-card">
+            <h1 style="text-shadow: var(--text-glow);">Hey Pallavi 💖</h1>
+            <p>I have something special to ask you...</p>
+            <button class="btn-continue" onclick="startExperience()">Open 💌</button>
         </div>
     </div>
 
     <div class="page" id="p3">
         <div id="proposal-text">I Love You Pallavi! 💖</div>
         <div class="stage">
-            <div id="boy-char" class="neon-char-container">
-                <div class="neon-line head"></div>
-                <div class="neon-line body"></div>
-                <div class="neon-line arm left"></div>
-                <div class="neon-line arm right"></div>
-                <div class="neon-line leg left"></div>
-                <div class="neon-line leg right"></div>
-                <div id="boy-rose" class="neon-line"></div>
-            </div>
-            <div id="girl-char" class="neon-char-container">
-                <div class="neon-line head"></div>
-                <div class="neon-line body"></div>
-                <div class="neon-line arm left"></div>
-                <div class="neon-line arm right"></div>
-                <div class="neon-line dress"></div>
-                <div id="girl-accepted-rose" class="neon-line"></div>
-            </div>
+            <svg id="boy-svg" class="human" viewBox="0 0 100 200">
+                <circle cx="50" cy="30" r="15" /> <path d="M50 45 L50 110" stroke-width="8" stroke="inherit" /> <path class="arm-l" d="M50 55 L30 100" stroke-width="6" stroke="inherit" />
+                <path class="arm-r" d="M50 55 L70 100" stroke-width="6" stroke="inherit" />
+                <path class="leg-l" d="M50 110 L35 170" stroke-width="7" stroke="inherit" />
+                <path class="leg-r" d="M50 110 L65 170" stroke-width="7" stroke="inherit" />
+                <circle class="rose" id="main-rose" cx="80" cy="70" r="8" /> </svg>
+
+            <svg id="girl-svg" class="human" viewBox="0 0 100 200">
+                <circle cx="50" cy="30" r="15" />
+                <path d="M50 45 L50 90" stroke-width="8" stroke="inherit" />
+                <path d="M20 160 L50 90 L80 160 Z" stroke-width="2" stroke="inherit" /> <path d="M50 55 L30 95" stroke-width="6" stroke="inherit" />
+                <path d="M50 55 L70 95" stroke-width="6" stroke="inherit" />
+                <path d="M40 160 L40 190" stroke-width="6" stroke="inherit" />
+                <path d="M60 160 L60 190" stroke-width="6" stroke="inherit" />
+            </svg>
         </div>
-        <div id="prop-box" class="glass-card" style="opacity:0; transition: 1s;">
-            <h2 style="text-shadow: var(--text-glow);">Pallavi...</h2>
+        
+        <div id="prop-box" class="glass-card" style="opacity:0;">
+            <h2>Pallavi...</h2>
             <p>Will you be mine forever?</p>
             <button class="btn-continue" onclick="acceptRose()">YES 💖</button>
         </div>
     </div>
 
     <div class="page" id="p4">
-        <div class="glass-card" onclick="toggleCardAndNext(this, 'p5')">
-            <img src="rose.gif" class="gif-frame">
-            <p class="message-text">Pallavi, you are the most beautiful soul I have ever known. Your kindness and grace inspire me every single day. Being with you feels like home, a place where I can truly be myself and find peace in your warm embrace.</p>
-        </div>
-    </div>
-
-    <div class="page" id="p5">
-        <div class="glass-card" onclick="toggleCardAndNext(this, 'p6')">
-            <div style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;">
-                <img src="heart1.gif" style="width:70px; border-radius:10px;" alt="Heart 1">
-                <img src="heart2.gif" style="width:70px; border-radius:10px;" alt="Heart 2">
-            </div>
-            <p class="message-text">Every heartbeat of mine whispers your name, Pallavi. I promise to protect your smile and cherish your dreams as if they were my own. Life's journey is only worth traveling if you are the one walking beside me, holding my hand.</p>
-        </div>
-    </div>
-
-    <div class="page" id="p6">
-        <div class="glass-card" onclick="toggleCardAndNext(this, 'p7')">
-            <div style="display:flex; justify-content:center; gap:5px; margin-bottom:15px;">
-                <img src="hug.gif" style="width:60px;" alt="Hug GIF">
-                <img src="kiss.gif" style="width:60px;" alt="Kiss GIF">
-                <img src="cute.gif" style="width:60px;" alt="Cute GIF">
-            </div>
-            <p class="message-text">I want to be your anchor in every storm and your biggest fan in every victory, Pallavi. You aren't just my love; you are my best friend and my entire world. Thank you for making my life so incredibly meaningful and full of joy.</p>
-        </div>
-    </div>
-
-    <div class="page" id="p7">
-        <div class="glass-card" onclick="toggleCardAndNext(this, 'p8')">
-            <img src="promise.gif" class="gif-frame" alt="Promise GIF">
-            <p class="message-text">Pallavi, I promise to choose you every single day, without a doubt, in a heartbeat. I look forward to building a beautiful future together, filled with laughter, deep conversations, and a love that only grows stronger with time.</p>
-        </div>
-    </div>
-    <div class="page" id="p8">
-        <div class="glass-card" onclick="spawnCenterHearts()">
-            <img src="endlove.gif" class="gif-frame">
-            <h2 style="text-shadow: var(--text-glow); margin-top:15px;">Always & Forever</h2>
-            <p class="message-text visible">Pallavi, you are my heart's final destination. I love you more than words could ever express, and I am so blessed to have you in my life. This is just the beginning of our forever. I love you! 💖</p>
+        <div class="glass-card" onclick="nextMessage(this)">
+            <h2 id="final-title">You made me the happiest!</h2>
+            <p class="message-text visible">Pallavi, you are my heart's final destination. I love you more than words can say. 💖</p>
+            <button class="btn-continue">Next 🌸</button>
         </div>
     </div>
 
     <script>
-        const music = document.getElementById('bg-music');
-        const video = document.getElementById('intro-video');
-        let current = 1;
-
-        // Background Particles
+        // Particles Background
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         let particles = [];
-        class P { constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.v = Math.random()*0.5+0.2; this.s = Math.random()*2; } draw() { ctx.fillStyle = "rgba(255, 45, 117, 0.5)"; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); this.y -= this.v; if(this.y < 0) this.y = canvas.height; } }
-        for(let i=0; i<60; i++) particles.push(new P());
+        class P { 
+            constructor() { 
+                this.x = Math.random()*canvas.width; 
+                this.y = Math.random()*canvas.height; 
+                this.v = Math.random()*0.5+0.2; 
+                this.s = Math.random()*2; 
+            } 
+            draw() { 
+                ctx.fillStyle = "rgba(255, 45, 117, 0.5)"; 
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); 
+                ctx.fill(); this.y -= this.v; 
+                if(this.y < 0) this.y = canvas.height; 
+            } 
+        }
+        for(let i=0; i<70; i++) particles.push(new P());
         function anim() { ctx.clearRect(0,0,canvas.width, canvas.height); particles.forEach(p => p.draw()); requestAnimationFrame(anim); }
         anim();
 
-        function toggleAudio() { if(music.paused) music.play(); else music.pause(); }
-
-        function initiate() {
-            music.volume = 0.35;
-            music.play();
+        function startExperience() {
             document.getElementById('p1').classList.remove('active');
-            
-            video.style.display = 'block';
-            video.src = 'intro-love.mp4';
-            music.pause(); // Pause music for video
-            video.play();
-            
-            video.onended = () => {
-                video.style.opacity = '0';
-                setTimeout(() => {
-                    video.style.display = 'none';
-                    music.play(); // Resume music
-                    startProposal();
-                }, 800);
-            };
-        }
-
-        function startProposal() {
             document.getElementById('p3').classList.add('active');
-            const boyChar = document.getElementById('boy-char');
-            const girlChar = document.getElementById('girl-char');
-
-            // Set girl's initial position on stage
-            girlChar.style.right = 'calc(50vw - 75px - 20px)'; // To the right of center
-            girlChar.style.opacity = '1';
-
-            // Boy walks in
+            
+            const boy = document.getElementById('boy-svg');
+            boy.classList.add('walking');
+            
+            // Boy moves to center
             setTimeout(() => {
-                boyChar.style.opacity = '1';
-                boyChar.classList.add('walk-in');
-                
-                // Boy Proposes
+                boy.style.left = "35%";
                 setTimeout(() => {
-                    boyChar.classList.add('proposing');
-                    document.getElementById('boy-rose').style.display = "block";
-                    document.getElementById('prop-box').style.opacity = '1';
-                }, 3600); // After walking animation ends
-            }, 500);
+                    boy.classList.remove('walking');
+                    boy.classList.add('proposing');
+                    document.getElementById('main-rose').style.display = "block";
+                    document.getElementById('prop-box').style.opacity = "1";
+                }, 3500);
+            }, 100);
         }
 
         function acceptRose() {
-            document.getElementById('boy-rose').style.display = 'none';
-            document.getElementById('girl-accepted-rose').style.display = 'block';
-            document.getElementById('proposal-text').classList.add('show-proposal-text');
-            document.getElementById('prop-box').style.opacity = '0';
-            spawnCenterHearts();
+            document.getElementById('proposal-text').style.opacity = "1";
+            document.getElementById('prop-box').style.opacity = "0";
+            spawnHearts();
             setTimeout(() => {
                 document.getElementById('p3').classList.remove('active');
-                current = 4;
-                document.getElementById('p' + current).classList.add('active');
-            }, 3500);
+                document.getElementById('p4').classList.add('active');
+            }, 3000);
         }
 
-        function toggleCardAndNext(cardElement, nextPageId) {
-            const messageText = cardElement.querySelector('.message-text');
-
-            if (!cardElement.classList.contains('expanded')) {
-                cardElement.classList.add('expanded');
-                if (messageText) {
-                    messageText.classList.add('visible');
-                }
-                spawnCenterHearts();
-            } else {
-                document.querySelector('.page.active').classList.remove('active');
-                const next = document.getElementById(nextPageId);
-                if (next) {
-                    next.classList.add('active');
-                    current++;
-                    // Optional: Spawn hearts on page change
-                } else {
-                    console.log("End of pages.");
-                }
-            }
-        }
-
-        function spawnCenterHearts() {
-            for(let i=0; i<20; i++) {
+        function spawnHearts() {
+            for(let i=0; i<15; i++) {
                 const h = document.createElement('div');
-                h.className = 'heart-fly'; h.innerHTML = '💖';
-                h.style.left = '50%'; h.style.top = '50%';
+                h.innerHTML = "💖";
+                h.style.position = "fixed";
+                h.style.left = "50%"; h.style.top = "50%";
+                h.style.fontSize = "24px";
                 document.body.appendChild(h);
-                h.animate([{transform:'translate(-50%,-50%) scale(0)', opacity:1}, {transform:`translate(${Math.random()*400-200}px, ${Math.random()*400-200}px) scale(1.5)`, opacity:0}], {duration:1500});
-                setTimeout(() => h.remove(), 1500);
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 100 + Math.random() * 200;
+                h.animate([
+                    { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+                    { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(1.5)`, opacity: 0 }
+                ], { duration: 2000, easing: 'ease-out' });
+                setTimeout(() => h.remove(), 2000);
             }
+        }
+
+        function nextMessage(card) {
+            // Aap isme aur bhi pages add kar sakte hain
+            alert("I Love You Forever, Pallavi!");
         }
     </script>
 </body>
-        </html>
+</html>
