@@ -1,208 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Republic Day 🇮🇳 | Personalized</title>
-    <style>
-        :root {
-            --saffron: #FF9933;
-            --white: #FFFFFF;
-            --green: #138808;
-            --navy: #000080;
-            --glass: rgba(255, 255, 255, 0.25);
-        }
+<meta charset="UTF-8">
+<title>Lyrics Terminal – @smss1708</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+<style>
+body{
+    margin:0;
+    background:radial-gradient(circle at top, #0f2027, #000);
+    font-family:"Courier New", monospace;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#00ffb3;
+}
 
-        body {
-            background: linear-gradient(135deg, #fff5e6 0%, #ffffff 50%, #e6ffeb 100%);
-            overflow-x: hidden;
-            color: #1a1a1a;
-            scroll-behavior: smooth;
-        }
+/* Laptop body */
+.laptop{
+    width:95%;
+    max-width:1000px;
+    background:#0b0f14;
+    border-radius:14px;
+    box-shadow:0 0 60px rgba(0,255,179,0.35);
+    overflow:hidden;
+    position:relative;
+}
 
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+/* Header */
+.header{
+    background:#1a1f25;
+    padding:10px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
 
-        .header {
-            position: fixed; top: 0; width: 100%; text-align: center; padding: 15px;
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
-            border-bottom: 3px solid var(--saffron); z-index: 1000;
-        }
+/* Mac dots */
+.dots{
+    display:flex;
+    gap:8px;
+}
+.dot{width:12px;height:12px;border-radius:50%;}
+.red{background:#ff5f56}
+.yellow{background:#ffbd2e}
+.green{background:#27c93f}
 
-        section {
-            min-height: 100vh; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; padding: 100px 20px;
-        }
+/* Insta */
+.insta{
+    font-size:14px;
+    color:#00ffb3;
+    opacity:0.9;
+}
 
-        .glass-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 25px;
-            padding: 30px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            max-width: 450px; width: 100%; transition: 0.4s; margin-bottom: 20px;
-        }
+/* Screen */
+.screen{
+    padding:22px;
+    height:420px;
+    overflow-y:auto;
+    font-size:16px;
+    line-height:1.65;
+    white-space:pre-wrap;
+}
 
-        .input-box {
-            width: 100%; padding: 12px; border-radius: 10px; border: 2px solid var(--saffron);
-            margin: 15px 0; outline: none; font-size: 1rem; text-align: center;
-        }
+/* Cursor */
+.cursor{
+    display:inline-block;
+    width:10px;
+    background:#00ffb3;
+    margin-left:2px;
+    animation:blink 1s infinite;
+}
+@keyframes blink{
+    0%,50%,100%{opacity:1}
+    25%,75%{opacity:0}
+}
 
-        .btn {
-            background: var(--navy); color: white; padding: 12px 25px;
-            border-radius: 50px; border: none; font-weight: bold; cursor: pointer;
-            width: 100%; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,128,0.3);
-        }
-
-        .whatsapp-btn { background: #25D366; margin-top: 10px; text-decoration: none; display: block; color: white; line-height: 40px; border-radius: 50px; font-weight: bold;}
-
-        /* Lyrics Styling */
-        #lyrics-container {
-            position: fixed; bottom: 100px; width: 100%; text-align: center;
-            pointer-events: none; z-index: 999;
-        }
-        #lyrics-text {
-            background: rgba(0, 0, 128, 0.8); color: white; padding: 8px 20px;
-            border-radius: 10px; font-size: 1.2rem; display: none;
-            box-shadow: 0 0 20px var(--saffron); animation: glow 2s infinite;
-        }
-
-        @keyframes glow { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.05); } }
-
-        .chakra {
-            width: 100px; animation: rotate 10s linear infinite; margin: 20px;
-        }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        .music-toggle {
-            position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px;
-            background: white; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-    </style>
+/* Music button */
+.music-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#00ffb3;
+    color:#000;
+    border:none;
+    padding:12px 14px;
+    border-radius:50%;
+    font-size:18px;
+    box-shadow:0 0 20px rgba(0,255,179,0.6);
+}
+</style>
 </head>
+
 <body>
 
-    <canvas id="bg-canvas"></canvas>
-    <header class="header">
-        <h1 id="userDisplay">Happy Republic Day 🇮🇳</h1>
-        <p>26 January 2026 | Proud Moment</p>
-    </header>
-
-    <div class="music-toggle" onclick="toggleMusic()">🎵</div>
-    <audio id="anthem" loop>
-        <source src="jan-gan-man.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="lyrics-container"><span id="lyrics-text"></span></div>
-
-    <section>
-        <div class="glass-card">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png" style="width: 80px; margin-bottom: 10px;">
-            <h2>Apna Naam Likhein</h2>
-            <input type="text" id="userName" class="input-box" placeholder="Yahan naam likhein...">
-            <button class="btn" onclick="updateName()">Apply My Name 🇮🇳</button>
-            <a href="#" id="shareBtn" class="whatsapp-btn" onclick="shareWhatsApp()">Share on WhatsApp 📲</a>
+<div class="laptop">
+    <div class="header">
+        <div class="dots">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
         </div>
-    </section>
+        <div class="insta">Instagram • @smss1708</div>
+    </div>
 
-    <section id="anthem-section">
-        <div class="glass-card">
-            <svg class="chakra" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2"/>
-                <circle cx="50" cy="50" r="5" fill="#000080"/>
-                <path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" stroke="#000080" stroke-width="1"/>
-            </svg>
-            <p class="quote-text">"Jana Gana Mana Adhinayaka Jaya He..."</p>
-            <button class="btn" style="margin-top: 20px;" onclick="startNationalAnthem()">Play National Anthem 🇮🇳</button>
-        </div>
-    </section>
+    <div class="screen" id="screen"></div>
+</div>
 
-    <section>
-        <div class="glass-card">
-            <h3>"Freedom in the mind, strength in the words, pureness in our blood, pride in our souls."</h3>
-            <h1 style="color: var(--navy); margin-top: 20px;">JAI HIND!</h1>
-        </div>
-    </section>
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
 
-    <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        const audio = document.getElementById('anthem');
-        const lyricsText = document.getElementById('lyrics-text');
+<audio id="bgm" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
 
-        const lyrics = [
-            { t: 0, text: "Jana Gana Mana Adhinayaka Jaya He" },
-            { t: 5, text: "Bharata Bhagya Vidhata" },
-            { t: 10, text: "Punjab Sindhu Gujarata Maratha" },
-            { t: 15, text: "Dravida Utkala Banga" },
-            { t: 20, text: "Vindhya Himachala Yamuna Ganga" },
-            { t: 25, text: "Uchchala Jaladhi Taranga" },
-            { t: 30, text: "Tava Subha Name Jage" },
-            { t: 35, text: "Tava Subha Asisa Mage" },
-            { t: 40, text: "Gahe Tava Jaya Gatha" },
-            { t: 45, text: "Jana Gana Mangala Dayaka Jaya He" },
-            { t: 50, text: "Bharata Bhagya Vidhata" },
-            { t: 52, text: "Jaya He, Jaya He, Jaya He" },
-            { t: 55, text: "Jaya Jaya Jaya Jaya He! 🇮🇳" }
-        ];
+<script>
+const lyrics = [
+"Humne wahi lagaya dil",
+"Jahan dil lagana mana tha",
+"",
+"Aakhir wahi kiye sajde",
+"Jahan sar jhukana mana tha",
+"",
+"Kyun zindagi bita di wahan",
+"Jahan ek pal bitana mana tha",
+"",
+"Kyun us gali me rehte hain wo gungunate",
+"Jahan roz jaana mana tha",
+"",
+"Zamane ki tarah",
+"Hum bhi toote hain",
+"",
+"Aise tanha to na the",
+"Par tanha chhod diye gaye",
+"",
+"Jo duaein unhe dete hain",
+"Haan usi ke hothon se",
+"",
+"Aise waise lafz bhi",
+"Humse bole gaye"
+];
 
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.onresize = resize; resize();
+const screen = document.getElementById("screen");
+let line = 0;
+let char = 0;
 
-        const particles = [];
-        for(let i=0; i<60; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                s: Math.random() * 3 + 1,
-                v: Math.random() * 1 + 0.5,
-                c: ['#FF9933', '#FFFFFF', '#138808'][Math.floor(Math.random()*3)]
-            });
+function typeLyrics(){
+    if(line < lyrics.length){
+        if(char < lyrics[line].length){
+            screen.innerHTML += lyrics[line].charAt(char);
+            char++;
+            screen.scrollTop = screen.scrollHeight;
+            setTimeout(typeLyrics, 45);
+        } else {
+            screen.innerHTML += "\n";
+            line++;
+            char = 0;
+            setTimeout(typeLyrics, 350);
         }
+    }
+}
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.y -= p.v;
-                if(p.y < 0) p.y = canvas.height;
-                ctx.fillStyle = p.c;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.s, 0, Math.PI*2);
-                ctx.fill();
-            });
-            requestAnimationFrame(draw);
-        }
-        draw();
+typeLyrics();
 
-        function updateName() {
-            const name = document.getElementById('userName').value;
-            if(name) {
-                document.getElementById('userDisplay').innerText = "Happy Republic Day from " + name + " 🇮🇳";
-                alert("Naam update ho gaya! Ab share karein.");
-            }
-        }
+/* Music logic */
+const music = document.getElementById("bgm");
+let started = false;
 
-        function toggleMusic() {
-            if(audio.paused) audio.play(); else audio.pause();
-        }
+document.body.addEventListener("click",()=>{
+    if(!started){
+        music.volume = 0.6;
+        music.play();
+        started = true;
+    }
+},{once:true});
 
-        function startNationalAnthem() {
-            audio.currentTime = 0;
-            audio.play();
-            lyricsText.style.display = "inline-block";
-        }
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+    }else{
+        music.pause();
+    }
+}
+</script>
 
-        audio.ontimeupdate = () => {
-            const current = audio.currentTime;
-            const active = lyrics.filter(l => current >= l.t).pop();
-            if(active) lyricsText.innerText = active.text;
-        };
-
-        function shareWhatsApp() {
-            const name = document.getElementById('userName').value || "Sivasingh";
-            const text = `*${name}* ne aapko Republic Day wish bheja hai! 🇮🇳 Is premium link ko dekhein: ${window.location.href}`;
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`);
-        }
-    </script>
 </body>
 </html>
