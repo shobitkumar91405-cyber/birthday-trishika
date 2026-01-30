@@ -2,163 +2,217 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Rose Day Cutiee</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { background: radial-gradient(circle, #2c0005 0%, #000000 100%); color: #fff; font-family: 'Poppins', sans-serif; overflow: hidden; height: 100vh; width: 100vw; }
-    
-    .header { position: fixed; top: 10px; width: 100%; text-align: center; z-index: 100; }
-    .header h3 { font-family: 'Dancing Script', cursive; color: #ff4d6d; text-shadow: 0 0 10px rgba(255, 77, 109, 0.8); font-size: 1.1rem; }
-    .header p { font-size: 0.7rem; color: rgba(255,255,255,0.6); }
-
-    .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.8s ease; padding: 20px; text-align: center; }
-    .screen.active { opacity: 1; visibility: visible; }
-
-    .canvas-container { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1; }
-
-    .intro-rose { font-size: 80px; filter: drop-shadow(0 0 20px #ff4d6d); animation: float 3s ease-in-out infinite; }
-    .glow-text { font-family: 'Great Vibes', cursive; font-size: 3rem; color: #ff4d6d; text-shadow: 0 0 15px rgba(255, 77, 109, 0.5); margin: 15px 0; }
-    .subtitle { font-size: 1rem; font-style: italic; color: #ffb3c1; max-width: 280px; line-height: 1.5; }
-    
-    .btn { margin-top: 30px; padding: 12px 35px; background: linear-gradient(45deg, #ff4d6d, #c9184a); border: none; border-radius: 50px; color: white; font-weight: 600; font-size: 1.1rem; box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4); cursor: pointer; animation: pulse 2s infinite; z-index: 10; }
-
-    .card { background: #fffaf0; background-image: radial-gradient(#dcdcdc 1px, transparent 0); background-size: 20px 20px; color: #333; padding: 30px 20px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 50px rgba(0,0,0,0.05); width: 90%; max-width: 350px; position: relative; transform: rotate(-2deg); animation: cardFloat 4s ease-in-out infinite; z-index: 5; border: 8px solid white; }
-    .card h2 { font-family: 'Great Vibes', cursive; color: #c9184a; font-size: 2.2rem; margin-bottom: 15px; }
-    .card p { font-family: 'Dancing Script', cursive; font-size: 1.3rem; line-height: 1.6; color: #444; }
-    .card .bottom { margin-top: 20px; font-weight: 600; color: #ff4d6d; font-size: 1.2rem; }
-
-    .slider-container { width: 90%; max-width: 320px; height: 350px; border: 10px solid white; border-radius: 10px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.5); position: relative; }
-    .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; object-fit: cover; }
-    .slide.active { opacity: 1; }
-
-    .couple-anim { font-size: 100px; display: block; margin-bottom: 20px; filter: drop-shadow(0 0 10px pink); }
-
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-    @keyframes cardFloat { 0%, 100% { transform: rotate(-2deg) translateY(0); } 50% { transform: rotate(1deg) translateY(-10px); } }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-    @keyframes bgHeart { from { transform: translateY(100vh) rotate(0deg); opacity: 1; } to { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
-
-    .particle { position: fixed; pointer-events: none; z-index: 2; animation: bgHeart linear forwards; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{
+background:radial-gradient(circle at top,#3a0015,#000);
+height:100vh;
+overflow:hidden;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.page{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+}
+.page.active{display:flex}
+.header{
+position:absolute;
+top:15px;
+width:100%;
+text-align:center;
+color:#ff6b8a;
+font-size:14px;
+text-shadow:0 0 10px #ff4d6d;
+}
+.rose{
+font-size:80px;
+animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+}
+h1{
+font-size:36px;
+color:#ff7aa2;
+text-shadow:0 0 20px #ff4d6d;
+margin:10px 0;
+}
+.subtitle{
+font-size:16px;
+opacity:.9;
+margin-bottom:30px;
+}
+.btn{
+background:linear-gradient(45deg,#ff2d55,#ff6f91);
+padding:15px 40px;
+border-radius:40px;
+border:none;
+color:#fff;
+font-size:18px;
+box-shadow:0 0 20px #ff2d55;
+}
+.card{
+background:#fffdf7;
+color:#333;
+border-radius:20px;
+padding:25px;
+max-width:330px;
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+animation:cardFloat 4s ease-in-out infinite;
+}
+@keyframes cardFloat{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+}
+.card h2{color:#ff4d6d;margin-bottom:10px}
+.card p{font-size:15px;line-height:1.6}
+.footer{
+margin-top:15px;
+color:#ff2d55;
+font-weight:bold;
+}
+.couple{
+font-size:90px;
+animation:float 3s infinite;
+}
+.slider{
+width:280px;
+height:180px;
+border-radius:20px;
+border:6px solid #fff;
+overflow:hidden;
+box-shadow:0 0 25px rgba(255,255,255,.6);
+}
+.slider img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+.fade{
+animation:fade 1s;
+}
+@keyframes fade{
+from{opacity:0}
+to{opacity:1}
+}
 </style>
-
 </head>
 <body>
-<div class="header">
-    <h3>Made with Love by Sivasingh ❤️</h3>
-    <p>@smss1708</p>
+
+<div class="header">Made with Love by Sivasingh ❤️<br>@smss1708</div>
+
+<audio id="bgm" src="rose-day.mp3" loop></audio>
+
+<div class="page active" id="p1">
+<div class="rose">🌹</div>
+<h1>Happy Rose Day<br>Cutiee ❤️</h1>
+<div class="subtitle">“This rose is not just a flower,<br>it’s my heart reaching out to you.”</div>
+<button class="btn" onclick="next()">Tap for Magic ✨</button>
 </div>
 
-<audio id="bgMusic" loop>
-    <source src="rose-day.mp3" type="audio/mpeg">
-</audio>
-
-<div id="screen1" class="screen active">
-    <div class="intro-rose">🌹</div>
-    <h1 class="glow-text">Happy Rose Day<br>Cutiee ❤️</h1>
-    <p class="subtitle">“This rose is not just a flower, it’s my heart reaching out to you.”</p>
-    <button class="btn" onclick="nextScreen(2)">Tap for Magic ✨</button>
+<div class="page" id="p2">
+<div class="card">
+<h2>My Love 💖</h2>
+<p>
+On this special Rose Day,<br>
+I want you to know that you are<br>
+the most beautiful part of my life.<br>
+Like a rose, you bring color, fragrance<br>
+and happiness into my world.<br>
+Every petal reminds me of your kindness,<br>
+every thorn of your strength.<br>
+You are not just my today,<br>
+you are my tomorrow,<br>
+and my forever.
+</p>
+<div class="footer">Happy Rose Day, Cutiee 🌹❤️</div>
+</div>
 </div>
 
-<div id="screen2" class="screen">
-    <div class="card">
-        <h2>My Love 💖</h2>
-        <p>“On this special Rose Day, I want you to know that you are the most beautiful part of my life. Like a rose, you bring color, fragrance and happiness into my world. Every petal reminds me of your kindness, every thorn of your strength. You are not just my today, you are my tomorrow, and my forever.”</p>
-        <div class="bottom">Happy Rose Day, Cutiee 🌹❤️</div>
-    </div>
-    <button class="btn" onclick="nextScreen(3)">Next Letter 💌</button>
+<div class="page" id="p3">
+<div class="card">
+<h2>My Heart 💞</h2>
+<p>
+From this moment till my last breath,<br>
+I promise to stand beside you<br>
+in every happiness and pain.<br>
+No matter where life takes us,<br>
+my heart will always find its way back to you.
+</p>
+<div class="footer">I Love You ❤️</div>
+</div>
 </div>
 
-<div id="screen3" class="screen">
-    <div class="card" style="transform: rotate(2deg); animation: cardFloat 5s ease-in-out infinite reverse;">
-        <h2>My Heart 💞</h2>
-        <p>“From this moment till my last breath, I promise to stand beside you in every happiness and pain. No matter where life takes us, my heart will always find its way back to you.”</p>
-        <div class="bottom" style="font-size: 1.5rem;">I Love You ❤️</div>
-    </div>
-    <button class="btn" onclick="nextScreen(4)">See Us ✨</button>
+<div class="page" id="p4">
+<div class="couple">💑</div>
+<div style="margin-top:20px;color:#ff8fab;font-size:20px">
+You said YES ❤️<br>My life just became complete.
+</div>
 </div>
 
-<div id="screen4" class="screen">
-    <div class="couple-anim">👩‍❤️‍👨</div>
-    <h1 class="glow-text" style="font-size: 2rem;">You said YES ❤️</h1>
-    <p class="subtitle" style="font-size: 1.2rem;">My life just became complete.</p>
-    <button class="btn" onclick="nextScreen(5)">Our Memories 📸</button>
+<div class="page" id="p5">
+<div class="slider">
+<img id="slide" src="photo1.jpg">
+</div>
 </div>
 
-<div id="screen5" class="screen">
-    <div class="slider-container">
-        <img src="photo1.jpg" class="slide active">
-        <img src="photo2.jpg" class="slide">
-        <img src="photo3.jpg" class="slide">
-        <img src="photo4.jpg" class="slide">
-    </div>
-    <button class="btn" onclick="nextScreen(6)">One Last Thing 🌹</button>
+<div class="page" id="p6">
+<div class="card">
+<p style="font-size:18px">
+Cutiee,<br><br>
+this Rose Day is not just about a flower…<br>
+it’s about everything my heart feels for you.<br>
+If love had a shape,<br>
+it would look like you.
+</p>
 </div>
-
-<div id="screen6" class="screen">
-    <div class="card" style="transform: rotate(0deg);">
-        <p style="font-size: 1.5rem;">“Cutiee, this Rose Day is not just about a flower… it’s about everything my heart feels for you. If love had a shape, it would look like you.”</p>
-        <div class="bottom" style="font-size: 1.8rem;">Forever Yours 🌹</div>
-    </div>
 </div>
 
 <script>
-    let currentScreen = 1;
-    const audio = document.getElementById('bgMusic');
-    audio.volume = 0.35;
+let pages=document.querySelectorAll('.page');
+let i=0;
+function next(){
+document.getElementById("bgm").volume=0.35;
+document.getElementById("bgm").play();
+pages[i].classList.remove("active");
+i++;
+if(i<pages.length){
+pages[i].classList.add("active");
+}
+}
 
-    function nextScreen(num) {
-        if(num === 2) {
-            audio.play().catch(e => console.log("Audio play blocked"));
-            startRoseRain();
-        }
-        document.getElementById(`screen${currentScreen}`).classList.remove('active');
-        currentScreen = num;
-        document.getElementById(`screen${currentScreen}`).classList.add('active');
+let photos=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg"];
+let s=0;
+setInterval(()=>{
+let img=document.getElementById("slide");
+if(!img)return;
+s=(s+1)%photos.length;
+img.classList.remove("fade");
+void img.offsetWidth;
+img.src=photos[s];
+img.classList.add("fade");
+},3000);
 
-        if(num === 5) startSlider();
-        if(num === 6) finalRoseBurst();
-    }
-
-    function createParticle(symbol) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.innerHTML = symbol;
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        p.style.duration = (Math.random() * 3 + 2) + 's';
-        p.style.animationDuration = p.style.duration;
-        p.style.opacity = Math.random();
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 5000);
-    }
-
-    function startRoseRain() {
-        setInterval(() => {
-            createParticle(Math.random() > 0.5 ? '🌹' : '💖');
-        }, 300);
-    }
-
-    function startSlider() {
-        let slides = document.querySelectorAll('.slide');
-        let i = 0;
-        setInterval(() => {
-            slides[i].classList.remove('active');
-            i = (i + 1) % slides.length;
-            slides[i].classList.add('active');
-        }, 3000);
-    }
-
-    function finalRoseBurst() {
-        for(let i=0; i<50; i++) {
-            setTimeout(() => createParticle('🌹'), i * 100);
-        }
-    }
-
-    document.addEventListener('touchstart', function() {
-        if(audio.paused && currentScreen > 1) audio.play();
-    }, {once: true});
+document.body.addEventListener("click",()=>{
+if(i>0 && i<pages.length-1){
+pages[i].classList.remove("active");
+i++;
+pages[i].classList.add("active");
+}
+});
 </script>
 
 </body>
